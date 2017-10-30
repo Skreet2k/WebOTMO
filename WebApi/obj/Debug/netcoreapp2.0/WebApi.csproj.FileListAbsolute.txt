@@ -1,0 +1,10 @@
+C:\dev\repositories\WebOTMO\WebApi\bin\Debug\netcoreapp2.0\WebApi.deps.json
+C:\dev\repositories\WebOTMO\WebApi\bin\Debug\netcoreapp2.0\WebApi.runtimeconfig.json
+C:\dev\repositories\WebOTMO\WebApi\bin\Debug\netcoreapp2.0\WebApi.runtimeconfig.dev.json
+C:\dev\repositories\WebOTMO\WebApi\bin\Debug\netcoreapp2.0\WebApi.dll
+C:\dev\repositories\WebOTMO\WebApi\bin\Debug\netcoreapp2.0\WebApi.pdb
+C:\dev\repositories\WebOTMO\WebApi\obj\Debug\netcoreapp2.0\WebApi.csproj.CoreCompileInputs.cache
+C:\dev\repositories\WebOTMO\WebApi\obj\Debug\netcoreapp2.0\WebApi.AssemblyInfoInputs.cache
+C:\dev\repositories\WebOTMO\WebApi\obj\Debug\netcoreapp2.0\WebApi.AssemblyInfo.cs
+C:\dev\repositories\WebOTMO\WebApi\obj\Debug\netcoreapp2.0\WebApi.dll
+C:\dev\repositories\WebOTMO\WebApi\obj\Debug\netcoreapp2.0\WebApi.pdb
