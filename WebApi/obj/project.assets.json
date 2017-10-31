@@ -12529,7 +12529,9 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
       "Microsoft.AspNetCore.All >= 2.0.0",
-      "Microsoft.NETCore.App >= 2.0.0"
+      "Microsoft.EntityFrameworkCore.SqlServer >= 2.0.0",
+      "Microsoft.NETCore.App >= 2.0.0",
+      "System.Security.Cryptography.Algorithms >= 4.3.0"
     ]
   },
   "packageFolders": {
@@ -12539,11 +12541,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\dev\\repositories\\WebOTMO\\WebApi\\WebApi.csproj",
+      "projectUniqueName": "c:\\dev\\repositories\\WebOTMO\\WebApi\\WebApi.csproj",
       "projectName": "WebApi",
-      "projectPath": "C:\\dev\\repositories\\WebOTMO\\WebApi\\WebApi.csproj",
+      "projectPath": "c:\\dev\\repositories\\WebOTMO\\WebApi\\WebApi.csproj",
       "packagesPath": "C:\\Users\\Skreet2k\\.nuget\\packages\\",
-      "outputPath": "C:\\dev\\repositories\\WebOTMO\\WebApi\\obj\\",
+      "outputPath": "c:\\dev\\repositories\\WebOTMO\\WebApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -12581,6 +12583,14 @@
           "Microsoft.AspNetCore.All": {
             "target": "Package",
             "version": "2.0.0"
+          },
+          "Microsoft.EntityFrameworkCore.SqlServer": {
+            "target": "Package",
+            "version": "2.0.0"
+          },
+          "System.Security.Cryptography.Algorithms": {
+            "target": "Package",
+            "version": "4.3.0"
           }
         },
         "imports": [
