@@ -1,15 +1,15 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist
-/tmp
-/out-tsc
+/WebClient/dist
+/WebClient/tmp
+/WebClient/out-tsc
 
 # dependencies
-/node_modules
+/WebClient/node_modules
 
 # IDEs and editors
-/.idea
+/WebClient/.idea
 .project
 .classpath
 .c9/
@@ -25,18 +25,21 @@
 !.vscode/extensions.json
 
 # misc
-/.sass-cache
-/connect.lock
-/coverage
-/libpeerconnection.log
+/WebClient/.sass-cache
+/WebClient/connect.lock
+/WebClient/coverage
+/WebClient/libpeerconnection.log
 npm-debug.log
 testem.log
-/typings
+/WebClient/typings
 
 # e2e
-/e2e/*.js
-/e2e/*.map
+/WebClient/e2e/*.js
+/WebClient/e2e/*.map
 
 # System Files
 .DS_Store
 Thumbs.db
+
+# WebApi
+/WebApi/obj
