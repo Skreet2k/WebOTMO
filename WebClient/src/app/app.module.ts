@@ -4,6 +4,7 @@ import { TabsModule } from 'ngx-bootstrap';
 import { ChartsModule } from 'ng2-charts';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import { AngularFontAwesomeModule } from "angular-font-awesome/angular-font-awesome"
 
 
 import { routing } from './app.routing';
@@ -18,7 +19,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { AlertService } from './services/alert.service';
 import { ChartComponent } from './core/chart/chart.component';
 import { TabPanelComponent } from './core/tabPanel/tabPanel.component';
-import { UserService } from './services/user.service'
+import { UserService } from './services/user.service';
+import { AuthenticationService } from './services/authentication.service'
 
 @NgModule({
   declarations: [
