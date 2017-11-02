@@ -21,11 +21,15 @@
     "@angular/platform-browser": "^4.2.4",
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
+    "angular-font-awesome": "2.3.7",
+    "bootstrap": "^3.3.7",
+    "chart.js": "2.7.1",
     "core-js": "^2.4.1",
-    "rxjs": "^5.4.2",
-    "zone.js": "^0.8.14",
+    "font-awesome": "4.7.0",
     "ng2-charts": "1.6.0",
-    "chart.js": "2.7.1"
+    "ngx-bootstrap": "1.9.3",
+    "rxjs": "^5.4.2",
+    "zone.js": "^0.8.14"
   },
   "devDependencies": {
     "@angular/cli": "1.4.9",

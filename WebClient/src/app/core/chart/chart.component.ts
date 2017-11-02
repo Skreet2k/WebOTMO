@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
- selector: 'line-chart-demo',
- templateUrl: './lineChart.component.html'
+ selector: 'pwc-chart',
+ templateUrl: './chart.component.html'
 })
-export class LineChartComponent {
+export class ChartComponent {
  // lineChart
  public lineChartData:Array<any> = [
    {data: [65, 59, 80, 81, 56, 55, 40, 50, 11, 21, 133], label: 'Series A'},

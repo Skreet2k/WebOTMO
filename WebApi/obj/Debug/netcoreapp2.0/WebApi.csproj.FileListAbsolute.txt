@@ -8,4 +8,13 @@ C:\dev\repositories\WebOTMO\WebApi\obj\Debug\netcoreapp2.0\WebApi.AssemblyInfoIn
 C:\dev\repositories\WebOTMO\WebApi\obj\Debug\netcoreapp2.0\WebApi.AssemblyInfo.cs
 C:\dev\repositories\WebOTMO\WebApi\obj\Debug\netcoreapp2.0\WebApi.dll
 C:\dev\repositories\WebOTMO\WebApi\obj\Debug\netcoreapp2.0\WebApi.pdb
-C:\dev\repositories\WebOTMO\WebApi\obj\Debug\netcoreapp2.0\WebApi.csprojResolveAssemblyReference.cache
+C:\Project\WebOTMO\WebApi\bin\Debug\netcoreapp2.0\WebApi.deps.json
+C:\Project\WebOTMO\WebApi\bin\Debug\netcoreapp2.0\WebApi.runtimeconfig.json
+C:\Project\WebOTMO\WebApi\bin\Debug\netcoreapp2.0\WebApi.runtimeconfig.dev.json
+C:\Project\WebOTMO\WebApi\bin\Debug\netcoreapp2.0\WebApi.dll
+C:\Project\WebOTMO\WebApi\bin\Debug\netcoreapp2.0\WebApi.pdb
+C:\Project\WebOTMO\WebApi\obj\Debug\netcoreapp2.0\WebApi.csproj.CoreCompileInputs.cache
+C:\Project\WebOTMO\WebApi\obj\Debug\netcoreapp2.0\WebApi.AssemblyInfoInputs.cache
+C:\Project\WebOTMO\WebApi\obj\Debug\netcoreapp2.0\WebApi.AssemblyInfo.cs
+C:\Project\WebOTMO\WebApi\obj\Debug\netcoreapp2.0\WebApi.dll
+C:\Project\WebOTMO\WebApi\obj\Debug\netcoreapp2.0\WebApi.pdb
