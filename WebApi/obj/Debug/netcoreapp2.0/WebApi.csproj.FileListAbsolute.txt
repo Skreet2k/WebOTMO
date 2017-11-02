@@ -18,3 +18,4 @@ C:\Project\WebOTMO\WebApi\obj\Debug\netcoreapp2.0\WebApi.AssemblyInfoInputs.cach
 C:\Project\WebOTMO\WebApi\obj\Debug\netcoreapp2.0\WebApi.AssemblyInfo.cs
 C:\Project\WebOTMO\WebApi\obj\Debug\netcoreapp2.0\WebApi.dll
 C:\Project\WebOTMO\WebApi\obj\Debug\netcoreapp2.0\WebApi.pdb
+c:\dev\repositories\WebOTMO\WebApi\obj\Debug\netcoreapp2.0\WebApi.csprojResolveAssemblyReference.cache
