@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using WebApi.Entities;
 
 namespace Services
 {
@@ -15,13 +16,5 @@ namespace Services
             modelBuilder.Entity<User>()
                 .ToTable("User");
         }
-    }
-
-    public partial class User
-    {
-        public long Id { get; set; }
-        public string Email { get; set; }
-        public byte[] Password { get; set; }
-        public byte[] Salt { get; set; }
     }
 }
