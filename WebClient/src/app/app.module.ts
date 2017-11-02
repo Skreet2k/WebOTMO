@@ -16,7 +16,7 @@ import { RegisterComponent } from './register/register.component';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AlertService } from './services/alert.service';
-import { ChartComponent } from './biz/chart/lineChart.component';
+import { ChartComponent } from './core/chart/chart.component';
 import { TabPanelComponent } from './core/tabPanel/tabPanel.component';
 import { UserService } from './services/user.service'
 
