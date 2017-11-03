@@ -7,6 +7,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { ChartComponent } from './core/chart/chart.component';
 import { HomeComponent } from './home/home.component';
 import { FlowsComponent } from './flows/flows.component';
+import { FlowComponent } from './flows/flow.component';
+
 
 const appRoutes: Routes = [
     {
@@ -15,7 +17,8 @@ const appRoutes: Routes = [
             { path: '', redirectTo: 'home', pathMatch: 'prefix' },
             { path: 'chart', component: ChartComponent },
             { path: 'home', component: HomeComponent },
-            { path: 'flows', component: FlowsComponent },            
+            { path: 'flows', component: FlowsComponent },         
+            { path: 'flow/:id', component: FlowComponent }            
         ]
     },
     { path: 'login', component: LoginComponent },

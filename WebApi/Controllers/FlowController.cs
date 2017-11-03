@@ -23,11 +23,24 @@ namespace WebApi.Controllers
         {
             return Ok(_flowService.GetFlows());
         }
+
+        [HttpGet("get/{id}")]
+        public IActionResult Get(long id)
+        {
+            return Ok(_flowService.GetFlow(id));
+        }
         
-        [HttpPut("upload")]
+        [HttpPost("upload")]
         public async Task<IActionResult> Upload([FromBody]FlowWithDataDto flow)
         {
             var result = await _flowService.Upload(flow);
+            return Ok(result);
+        }
+
+        [HttpPut("update")]
+        public async Task<IActionResult> Update([FromBody]FlowWithDataDto flow)
+        {
+            var result = await _flowService.Update(flow);
             return Ok(result);
         }
     }

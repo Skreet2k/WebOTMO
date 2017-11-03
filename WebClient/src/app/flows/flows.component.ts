@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FlowService } from '../services/flow.service';
 import { Flow } from '../models/flow'
 
@@ -9,24 +9,34 @@ import { Flow } from '../models/flow'
 export class FlowsComponent implements OnInit {
     defaultFlows: Flow[] = [];
     userFlows: Flow[] = [];
+    flowName: string = "";
+    @ViewChild('fileInput') fileInput;
 
     constructor(
         private flowService: FlowService) { }
 
     ngOnInit(): void {
         this.flowService.getAll().subscribe(data => {
-            this.defaultFlows = data.filter(x => x.Id === 0);
-            this.userFlows = data.filter(x => x.Id > 0);            
+            this.defaultFlows = data.filter(x => x.userId === null);
+            this.userFlows = data.filter(x => x.userId != null);
         });
     }
 
-    login() {
-        this.flowService.upload("Тестовая загрузка", "[1,2,3]")
-            .subscribe(
-            data => {
-                console.log(data)
-            },
-            error => {
-            });
+    upload() {
+        let fileBrowser = this.fileInput.nativeElement;
+        if (fileBrowser.files && fileBrowser.files[0]) {
+
+            var file = fileBrowser.files[0];
+            var flowService = this.flowService;
+            var flowName = this.flowName;
+            var userFlows = this.userFlows;
+            var reader = new FileReader();
+            reader.onload = function (progressEvent) {
+                flowService.upload(flowName, JSON.stringify(this.result.split('\n'))).subscribe(
+                    data => { userFlows.push(data); }
+                );
+            }
+            reader.readAsText(file);
+        }
     }
 }

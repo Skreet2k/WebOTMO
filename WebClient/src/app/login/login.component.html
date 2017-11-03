@@ -1,7 +1,7 @@
 <div class="d-flex align-items-center justify-content-center h-100">
     <div class="jumbotron w-50">
             <alert></alert>
-            <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2">
+            <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2">
                 <h2>Login</h2>
                 <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">

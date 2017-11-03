@@ -1,16 +1,30 @@
 <div class="row">
-    <div class="col-md-4">
-        Your Flows
-        <ul>
-        <li *ngFor="let flow of defaultFlows">
-            {{flow.Id}}
-          </li>
+    <div class="col-md-2 offset-md-3">
+        <div class="list-group">
+            <span class="list-group-item bg-secondary">Your Flows</span>
+            <a class="list-group-item list-group-item-action text-dark" [routerLink]="['../flow', flow.id]" *ngFor="let flow of userFlows">
+                {{flow.name}}
+            </a>
+        </div>
+    </div>
+    <div class="col-md-2">
+
+        <div class="list-group">
+            <span class="list-group-item bg-secondary">Default Flows</span>
+            <span class="list-group-item text-dark" *ngFor="let flow of defaultFlows">
+                {{flow.name}}
+            </span>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <ul class="list-group">
+            <li class="list-group-item bg-secondary">Upload Flow</li>
+            <li class="list-group-item text-dark">
+                <input type="text" class="form-control form-control-sm my-2" [(ngModel)]="flowName" placeholder="Flow name..." />
+                <input type="file" class="form-control-file my-2" #fileInput placeholder="Upload file..." />
+                <small class="form-text text-muted">.txt file with arrival times of packets separated by line wrapping</small>
+                <button type="button" class="btn btn-sm btn-success my-2" (click)="upload()">Upload</button>
+            </li>
         </ul>
-    </div>
-    <div class="col-md-4">
-        Default Flows
-    </div>
-    <div class="col-md-4">
-        Upload Flow
     </div>
 </div>

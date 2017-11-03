@@ -15,6 +15,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { FlowsComponent } from './flows/flows.component';
+import { FlowComponent } from './flows/flow.component';
 
 
 import { AppComponent } from './app.component';
@@ -36,7 +37,9 @@ import { AuthenticationService } from './services/authentication.service';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    FlowsComponent
+    FlowsComponent,
+    FlowComponent
+    
   ],
   imports: [
     BrowserModule,
