@@ -12,7 +12,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using WebApi.Entities;
 using Microsoft.AspNetCore.Authorization;
- 
+using Microsoft.AspNetCore.Http;
+
 namespace WebApi.Controllers
 {
     [Authorize]
@@ -55,8 +56,7 @@ namespace WebApi.Controllers
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
- 
-            // return basic user info (without password) and token to store client side
+
             return Ok(new {
                 Id = user.Id,
                 Email = user.Email,
@@ -84,22 +84,6 @@ namespace WebApi.Controllers
             }
         }
  
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var users =  _userService.GetAll();
-            var userDtos = _mapper.Map<IList<UserDto>>(users);
-            return Ok(userDtos);
-        }
- 
-        [HttpGet("{id}")]
-        public IActionResult GetById(int id)
-        {
-            var user =  _userService.GetById(id);
-            var userDto = _mapper.Map<UserDto>(user);
-            return Ok(userDto);
-        }
- 
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody]UserDto userDto)
         {
@@ -118,13 +102,6 @@ namespace WebApi.Controllers
                 // return error message if there was an exception
                 return BadRequest(ex.Message);
             }
-        }
- 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            _userService.Delete(id);
-            return Ok();
         }
     }
 }

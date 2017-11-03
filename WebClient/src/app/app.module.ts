@@ -14,6 +14,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { FlowsComponent } from './flows/flows.component';
 
 
 import { AppComponent } from './app.component';
@@ -22,6 +23,7 @@ import { AlertService } from './services/alert.service';
 import { ChartComponent } from './core/chart/chart.component';
 import { TabPanelComponent } from './core/tabPanel/tabPanel.component';
 import { UserService } from './services/user.service';
+import { FlowService } from './services/flow.service';
 import { AuthenticationService } from './services/authentication.service';
 
 @NgModule({
@@ -33,7 +35,8 @@ import { AuthenticationService } from './services/authentication.service';
     LayoutComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    FlowsComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,8 @@ import { AuthenticationService } from './services/authentication.service';
     AuthGuard,
     AlertService,
     AuthenticationService,
-    UserService
+    UserService,
+    FlowService
   ],
   bootstrap: [AppComponent]
 })
