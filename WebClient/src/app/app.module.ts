@@ -10,9 +10,11 @@ import { AngularFontAwesomeModule } from "angular-font-awesome/angular-font-awes
 import { routing } from './app.routing';
 import { AppConfig } from './app.config';
 import { AlertComponent } from './derectives/alert.component';
-import { HomeComponent } from './home/home.component';
+import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './home/home.component';
+
 
 import { AppComponent } from './app.component';
 import { AuthGuard } from './guards/auth.guard';
@@ -28,9 +30,10 @@ import { AuthenticationService } from './services/authentication.service';
     ChartComponent,
     TabPanelComponent,
     AlertComponent,
-    HomeComponent,
+    LayoutComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
