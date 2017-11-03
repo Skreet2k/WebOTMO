@@ -1,0 +1,13 @@
+.layout {
+    height: 100%;
+
+    > .navbar {
+        height: $navbarHeight;
+        margin-bottom: 0;
+    }
+
+    > .layout-content {
+        padding: $commonElementOffset;
+        height: $layoutContentHeight;
+    }
+}

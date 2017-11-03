@@ -1,0 +1,12 @@
+// Common
+@import "./app/styles/variables.scss";
+@import "./app/styles/replaces.scss";
+@import "./app/styles/mixins.scss";
+
+// Charts
+@import "./app/core/chart/layout/chartLayout.component.scss";
+@import "./app/core/chart/sidebar/chartSidebar.component.scss";
+@import "./app/core/chart/chart/chart.component.scss";
+
+// Layout
+@import "./app/layout/layout.component.scss";
