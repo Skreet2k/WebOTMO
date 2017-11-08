@@ -9,7 +9,7 @@ namespace Services
         public DbSet<Flow> Flows { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=localhost;Initial Catalog=OTMO;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Data Source=mssql5.gear.host;Initial Catalog=otmo;User ID=otmo;Password=Ff2L566M0~-i;");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
