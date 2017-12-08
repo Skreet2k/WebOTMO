@@ -26,6 +26,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { AppConfig } from './app.config';
 
 import { IterablePipe } from './pipes/iterable.pipe';
+import { CompileDirective } from './derectives/compile.directive';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { IterablePipe } from './pipes/iterable.pipe';
     ChartComponent,
     IterablePipe,
     FlowsComponent,
-    FlowComponent
+    FlowComponent,
+    CompileDirective
   ],
   imports: [
     BrowserModule,
