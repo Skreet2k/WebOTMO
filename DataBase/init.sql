@@ -1,0 +1,20 @@
+
+CREATE TABLE [dbo].[User] (
+    [Id]       BIGINT           IDENTITY (1, 1) NOT NULL,
+    [Email]    VARCHAR (512)    NOT NULL,
+    [Password] VARBINARY (8000) NOT NULL,
+    [Salt]     VARBINARY (8000) NOT NULL,
+    CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_User] UNIQUE NONCLUSTERED ([Email] ASC)
+);
+
+GO
+
+CREATE TABLE [dbo].[Flow] ( 
+[Id] BIGINT IDENTITY (1, 1) NOT NULL, 
+[Name] NVARCHAR (255) NOT NULL, 
+[Data] NVARCHAR (MAX) NOT NULL, 
+[UserId] BIGINT NULL, 
+CONSTRAINT [PK_Flow] PRIMARY KEY CLUSTERED ([Id] ASC), 
+CONSTRAINT [FK_Flow_User] FOREIGN KEY ([UserId]) REFERENCES [dbo].[User] ([Id]) 
+);
