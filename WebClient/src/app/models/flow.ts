@@ -1,5 +1,5 @@
 export class Flow {
-    Id: number;
-    Name: string;
-    Data: string;
+    id: number;
+    name: string;
+    data: string;
 }

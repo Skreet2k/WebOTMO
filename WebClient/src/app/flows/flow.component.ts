@@ -30,10 +30,11 @@ export class FlowComponent implements OnInit {
       const flow = this.flow;
       const router = this.router;
       reader.onload = function(progressEvent) {
-        flow.Data = JSON.stringify(this.result.split('\n'));
-        flowService
-          .update(flow)
-          .subscribe(() => router.navigate(['/main/flows']));
+        flow.data = JSON.stringify(this.result.split('\n'));
+        const isValid = flowService.validate(flow);
+        if (isValid) {
+          flowService.update(flow).subscribe(() => router.navigate(['/main/flows']));
+        }
       };
       reader.readAsText(file);
       return;
