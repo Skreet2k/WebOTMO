@@ -2,8 +2,8 @@
     <div class="col-md-2 offset-md-3">
         <div class="list-group">
             <span class="list-group-item bg-secondary">Your Flows</span>
-            <a class="list-group-item list-group-item-action text-dark" [routerLink]="['../flow', flow.id]" *ngFor="let flow of userFlows">
-                {{flow.name}}
+            <a class="list-group-item list-group-item-action text-dark" [routerLink]="['../flow', flow.Id]" *ngFor="let flow of userFlows">
+                {{flow.Name}}
             </a>
         </div>
     </div>
@@ -12,7 +12,7 @@
         <div class="list-group">
             <span class="list-group-item bg-secondary">Default Flows</span>
             <span class="list-group-item text-dark" *ngFor="let flow of defaultFlows">
-                {{flow.name}}
+                {{flow.Name}}
             </span>
         </div>
     </div>

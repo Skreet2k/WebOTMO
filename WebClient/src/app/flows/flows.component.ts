@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FlowService } from '../services/flow.service';
-import { Flow } from '../models/flow'
+import { Flow } from '../models/flow';
 
 
 @Component({
@@ -9,7 +9,7 @@ import { Flow } from '../models/flow'
 export class FlowsComponent implements OnInit {
     defaultFlows: Flow[] = [];
     userFlows: Flow[] = [];
-    flowName: string = "";
+    flowName = '';
     @ViewChild('fileInput') fileInput;
 
     constructor(
@@ -23,19 +23,19 @@ export class FlowsComponent implements OnInit {
     }
 
     upload() {
-        let fileBrowser = this.fileInput.nativeElement;
+        const fileBrowser = this.fileInput.nativeElement;
         if (fileBrowser.files && fileBrowser.files[0]) {
 
-            var file = fileBrowser.files[0];
-            var flowService = this.flowService;
-            var flowName = this.flowName;
-            var userFlows = this.userFlows;
-            var reader = new FileReader();
+            const file = fileBrowser.files[0];
+            const flowService = this.flowService;
+            const flowName = this.flowName;
+            const userFlows = this.userFlows;
+            const reader = new FileReader();
             reader.onload = function (progressEvent) {
                 flowService.upload(flowName, JSON.stringify(this.result.split('\n'))).subscribe(
                     data => { userFlows.push(data); }
                 );
-            }
+            };
             reader.readAsText(file);
         }
     }

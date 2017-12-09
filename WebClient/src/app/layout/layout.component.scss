@@ -11,3 +11,25 @@
         height: $layoutContentHeight;
     }
 }
+
+
+.nav-fixed {
+  width: 55px;
+  span {
+    display: none;
+  };
+  font-size: 1.5em;
+  &.collapsed{
+      width: 150px;
+      span {
+        display: inline-block;
+        font-size: 0.8em;
+      };
+  }
+  a:not(.active):not(.brand)
+  {    color: hsla(0,0%,100%,.5)!important
+  }
+}
+.nav .fa-navicon{
+  cursor: pointer;
+}

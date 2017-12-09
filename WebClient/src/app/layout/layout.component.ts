@@ -5,5 +5,11 @@ import { Component } from '@angular/core';
    templateUrl: 'layout.component.html'
 })
 
-export class LayoutComponent{
+export class LayoutComponent {
+
+  collapsed = false;
+
+  toggle() {
+    this.collapsed = !this.collapsed;
+  }
 }
