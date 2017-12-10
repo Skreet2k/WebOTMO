@@ -23,6 +23,8 @@ import { AlertService } from './services/alert.service';
 import { UserService } from './services/user.service';
 import { FlowService } from './services/flow.service';
 import { AuthenticationService } from './services/authentication.service';
+import { FlowFunctionsService } from './services/flowFunctions.service';
+
 import { AppConfig } from './app.config';
 
 import { IterablePipe } from './pipes/iterable.pipe';
@@ -59,7 +61,8 @@ import { CompileDirective } from './derectives/compile.directive';
     AlertService,
     AuthenticationService,
     UserService,
-    FlowService
+    FlowService,
+    FlowFunctionsService
   ],
   bootstrap: [AppComponent]
 })
