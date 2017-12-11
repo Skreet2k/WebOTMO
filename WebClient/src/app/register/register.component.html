@@ -3,16 +3,18 @@
         <alert></alert>
         <div>
             <h2>Register</h2>
-            <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
-                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+            <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" validate>
+                <div class="form-group" [ngClass]="{ 'invalid   ': f.submitted && email.invalid }">
                     <label for="email">Email</label>
-                    <input type="text" class="form-control" name="email" [(ngModel)]="model.Email" #email="ngModel" required />
-                    <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
+                    <input type="text" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control" name="email" [(ngModel)]="model.Email" #email="ngModel" required />
+                    <div *ngIf="f.submitted && email.errors.required" class="alert alert-danger my-2">Email address is required</div>
+                    <div *ngIf="f.submitted && email.errors.pattern" class="alert alert-danger my-2">Invalid email address</div> 
                 </div>
-                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                <div class="form-group" [ngClass]="{ 'invalid': f.submitted && password.invalid }">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" name="password" [(ngModel)]="model.Password" #password="ngModel" required />
-                    <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+                    <input type="password" class="form-control" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$ "name="password" [(ngModel)]="model.Password" #password="ngModel" required />
+                    <div *ngIf="f.submitted && password.errors.required" class="alert alert-danger my-2">Password is required</div>
+                    <div *ngIf="f.submitted && password.errors.pattern" class="alert alert-danger my-2">P</div>                    
                 </div>
                 <div class="form-group">
                     <button [disabled]="loading" class="btn btn-primary">Register</button>
