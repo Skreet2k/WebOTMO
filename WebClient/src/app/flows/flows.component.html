@@ -3,17 +3,29 @@
     <div class="col-md-6 col-lg-4 pb-5">
       <div class="list-group">
         <span class="list-group-item bg-secondary">Your Flows</span>
-        <a class="list-group-item list-group-item-action text-dark" [routerLink]="['../flow', flow.id]" *ngFor="let flow of userFlows">
-          {{flow.name}}
-        </a>
+        <div class="text-center" *ngIf="isLoading">
+          <span class="list-group-item text-dark"><i class="fa fa-spinner fa-pulse fa-fw fa-4x"></i></span>
+        </div>
+        <div *ngIf="!isLoading">
+          <span class="list-group-item text-dark" *ngIf="userFlows.length == 0">Not one thread flow added</span>        
+          <a class="list-group-item list-group-item-action text-dark" [routerLink]="['../flow', flow.id]" *ngFor="let flow of userFlows">
+            {{flow.name}}
+          </a>
+        </div>
       </div>
     </div>
     <div class="col-md-6 col-lg-4 pb-5">
       <div class="list-group">
         <span class="list-group-item bg-secondary">Default Flows</span>
+        <div class="text-center" *ngIf="isLoading">
+          <span class="list-group-item text-dark"><i class="fa fa-spinner fa-pulse fa-fw fa-4x"></i></span>
+        </div>
+        <div *ngIf="!isLoading"> 
+        <span class="list-group-item text-dark" *ngIf="defaultFlows.length == 0">Not one thread flow added</span>
         <span class="list-group-item text-dark" *ngFor="let flow of defaultFlows">
           {{flow.name}}
         </span>
+        </div>
       </div>
     </div>
     <div class="col-md-6 col-lg-4">
@@ -21,12 +33,12 @@
         <li class="list-group-item bg-secondary">Upload Flow</li>
         <li class="list-group-item text-dark">
           <input type="text" class="form-control form-control-sm my-2" [(ngModel)]="flowName" placeholder="Flow name..." />
-          <label class="custom-file  my-2">
+          <label class="custom-file my-2 w-100">
             <input type="file" accept="text/plain" #fileInput class="custom-file-input">
             <span class="custom-file-control form-control form-control-sm"></span>
           </label>
           <small class="form-text text-muted">.txt file with arrival times of packets separated by line wrapping</small>
-          <button type="button" class="btn btn-sm btn-success my-2" (click)="upload()">Upload</button>
+          <button [disabled]="isUpdate" type="button" class="btn btn-sm btn-success my-2" (click)="upload()">Upload<i class="fa fa-spinner fa-pulse fa-fw ml-2" *ngIf="isUpdate"></i></button>
         </li>
       </ul>
     </div>

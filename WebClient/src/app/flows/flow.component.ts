@@ -9,7 +9,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class FlowComponent implements OnInit {
   flow: Flow = new Flow();
   @ViewChild('fileInput') fileInput;
-
+  isLoading: boolean = false;
+  isUpdate: boolean = false;
+  
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -18,11 +20,14 @@ export class FlowComponent implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    this.flowService.getById(id).subscribe(data => (this.flow = data));
+    this.isLoading = true;    
+    this.flowService.getById(id).subscribe(data => {this.flow = data; this.isLoading = false;});
   }
 
   update() {
     const fileBrowser = this.fileInput.nativeElement;
+    this.isUpdate = true;
+    const that = this;
     if (fileBrowser.files && fileBrowser.files[0]) {
       const file = fileBrowser.files[0];
       const flowService = this.flowService;
@@ -35,13 +40,14 @@ export class FlowComponent implements OnInit {
         if (isValid) {
           flowService.update(flow).subscribe(() => router.navigate(['/main/flows']));
         }
+        that.isUpdate = false;        
       };
       reader.readAsText(file);
       return;
     }
     this.flowService
       .update(this.flow)
-      .subscribe(() => this.router.navigate(['/main/flows']));
+      .subscribe(() => {this.router.navigate(['/main/flows']); this.isUpdate = false});
   }
 
   cancel() {
