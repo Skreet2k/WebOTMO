@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { AlertService } from '../services/alert.service';
 import { UserService } from '../services/user.service';
+import { User } from '../models/user';
 
 @Component({
     moduleId: module.id,
@@ -10,8 +11,8 @@ import { UserService } from '../services/user.service';
 })
 
 export class RegisterComponent {
-    model: any = {};
-    loading = false;
+    model: User = new User();
+    isLoading = false;
 
     constructor(
         private router: Router,
@@ -19,16 +20,17 @@ export class RegisterComponent {
         private alertService: AlertService) { }
 
     register() {
-        this.loading = true;
+        this.isLoading = true;
         this.userService.create(this.model)
             .subscribe(
                 data => {
                     this.alertService.success('Registration successful', true);
                     this.router.navigate(['/login']);
+                    this.isLoading = false;
                 },
                 error => {
                     this.alertService.error(error._body);
-                    this.loading = false;
+                    this.isLoading = false;
                 });
     }
 }

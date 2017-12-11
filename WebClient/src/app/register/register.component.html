@@ -3,32 +3,21 @@
         <alert></alert>
         <div>
             <h2>Register</h2>
-            <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" validate>
-                <div class="form-group" [ngClass]="{ 'invalid   ': f.submitted && email.invalid }">
-                    <label for="email">Email</label>
-                    <input type="text" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control" name="email" [(ngModel)]="model.Email" #email="ngModel" required />
+            <form name="form" class="pt-3" (ngSubmit)="f.form.valid && register()" #f="ngForm" validate>
+                <div class="input-group form-group" [ngClass]="{ 'invalid': f.submitted && !email.valid }">
+                    <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>          
+                    <input type="text" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control" placeholder="Email" name="email" [(ngModel)]="model.email" #email="ngModel" required />
                     <div *ngIf="f.submitted && email.errors.required" class="alert alert-danger my-2">Email address is required</div>
                     <div *ngIf="f.submitted && email.errors.pattern" class="alert alert-danger my-2">Invalid email address</div> 
-                </div>
-                <div class="form-group" [ngClass]="{ 'invalid': f.submitted && password.invalid }">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$ "name="password" [(ngModel)]="model.Password" #password="ngModel" required />
-                    <div *ngIf="f.submitted && password.errors.required" class="alert alert-danger my-2">Password is required</div>
-                    <div *ngIf="f.submitted && password.errors.pattern" class="alert alert-danger my-2">P</div>                    
-                </div>
-            <form name="form" class="pt-3" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
-                <div class="input-group form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-                    <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>          
-                    <input type="text" class="form-control" placeholder="Username" name="username" [(ngModel)]="model.username" #username="ngModel" required />
-                    <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
-                  </div>
-                  <div class="input-group form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                                  </div>
+                  <div class="input-group form-group" [ngClass]="{ 'invalid': f.submitted && !password.valid }">
                     <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>          
-                    <input type="password" placeholder="Password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
-                    <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
-                  </div>
+                    <input type="password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" placeholder="Password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
+                    <div *ngIf="f.submitted && password.errors.required" class="alert alert-danger my-2">Password is required</div>
+                    <div *ngIf="f.submitted && password.errors.pattern" class="alert alert-danger my-2">P</div>   
+                                  </div>
                 <div class="form-group">
-                    <button [disabled]="loading" class="btn btn-primary">Register<i class="fa fa-spinner fa-pulse fa-fw ml-2" *ngIf="loading"></i></button>
+                    <button [disabled]="isLoading" class="btn btn-primary">Register<i class="fa fa-spinner fa-pulse fa-fw ml-2" *ngIf="isLoading"></i></button>
                     <a [routerLink]="['/login']" class="btn btn-link">Cancel</a>
                 </div>
             </form>
