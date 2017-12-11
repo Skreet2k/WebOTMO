@@ -1,26 +1,47 @@
 <div class="row-fluid d-flex align-items-center justify-content-center h-100">
-    <div class="bg-light p-5 border rounded col-12 col-lg-3 col-md-8">
-        <alert></alert>
-        <div>
-            <h2>Register</h2>
-            <form name="form" class="pt-3" (ngSubmit)="f.form.valid && register()" #f="ngForm" validate>
-                <div class="input-group form-group" [ngClass]="{ 'invalid': f.submitted && !email.valid }">
-                    <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>          
-                    <input type="text" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control" placeholder="Email" name="email" [(ngModel)]="model.email" #email="ngModel" required />
-                    <div *ngIf="f.submitted && email.errors.required" class="alert alert-danger my-2">Email address is required</div>
-                    <div *ngIf="f.submitted && email.errors.pattern" class="alert alert-danger my-2">Invalid email address</div> 
-                                  </div>
-                  <div class="input-group form-group" [ngClass]="{ 'invalid': f.submitted && !password.valid }">
-                    <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>          
-                    <input type="password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" placeholder="Password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
-                    <div *ngIf="f.submitted && password.errors.required" class="alert alert-danger my-2">Password is required</div>
-                    <div *ngIf="f.submitted && password.errors.pattern" class="alert alert-danger my-2">P</div>   
-                                  </div>
-                <div class="form-group">
-                    <button [disabled]="isLoading" class="btn btn-primary">Register<i class="fa fa-spinner fa-pulse fa-fw ml-2" *ngIf="isLoading"></i></button>
-                    <a [routerLink]="['/login']" class="btn btn-link">Cancel</a>
-                </div>
-            </form>
+  <div class="bg-light p-5 border rounded col-12 col-lg-3 col-md-8">
+    <div>
+      <h2>Register</h2>
+      <form name="form" class="pt-3" (ngSubmit)="f.form.valid && register()" #f="ngForm" validate>
+        <div class="input-group form-group" [ngClass]="{ 'invalid': f.submitted && !email.valid }">
+          <span class="input-group-addon">
+            <i class="fa fa-envelope-o fa-fw"></i>
+          </span>
+          <input type="text" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control" placeholder="Email" name="email"
+            [(ngModel)]="model.email" #email="ngModel" />
+
         </div>
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger mt-2">
+          <small *ngIf="email.errors.required">
+            Email is required
+          </small>
+          <small *ngIf="email.errors.pattern">
+            Invalid email address
+          </small>
+        </div>
+        <div class="input-group form-group" [ngClass]="{ 'invalid': f.submitted && !password.valid }">
+          <span class="input-group-addon">
+            <i class="fa fa-key fa-fw"></i>
+          </span>
+          <input type="password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" placeholder="Password"
+            class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
+        </div>
+        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger mt-2">
+          <small *ngIf="password.errors.required">
+            Password is required
+          </small>
+          <small *ngIf="password.errors.pattern">
+            Your password must contain uppercase and lowercase letters, as well as numbers. The minimum length is 8 characters
+          </small>
+        </div>
+        <alert></alert>
+        <div class="form-group">
+          <button [disabled]="isLoading" class="btn btn-primary">Register
+            <i class="fa fa-spinner fa-pulse fa-fw ml-2" *ngIf="isLoading"></i>
+          </button>
+          <a [routerLink]="['/login']" class="btn btn-link">Cancel</a>
+        </div>
+      </form>
     </div>
+  </div>
 </div>

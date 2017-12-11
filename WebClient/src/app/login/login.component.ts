@@ -1,3 +1,4 @@
+import {User} from '../models/user';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -9,7 +10,7 @@ import { AuthenticationService } from '../services/authentication.service';
   templateUrl: 'login.component.html'
 })
 export class LoginComponent implements OnInit {
-  model: any = {};
+  model: any = new User();
   loading = false;
   returnUrl: string;
 
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.loading = true;
     this.authenticationService
-      .login(this.model.username, this.model.password)
+      .login(this.model.email, this.model.password)
       .subscribe(
         data => {
           this.router.navigate([this.returnUrl]);
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit {
         error => {
           this.loading = false;
           if (error.status === 401) {
-            this.alertService.error('Invalid username or password');
+            this.alertService.error('Invalid email or password');
             return;
           }
           this.alertService.error('Somethink wrong. Try again later');

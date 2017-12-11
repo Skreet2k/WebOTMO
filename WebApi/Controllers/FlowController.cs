@@ -43,5 +43,12 @@ namespace WebApi.Controllers
             var result = await _flowService.Update(flow);
             return Ok(result);
         }
+
+        [HttpPut("getfunction/{flowId}/{functionId}/")]
+        public async Task<IActionResult> GetFunction([FromBody]FlowWithDataDto flow)
+        {
+            var result = await _flowService.Update(flow);
+            return Ok(result);
+        }
     }
 }

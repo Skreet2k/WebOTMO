@@ -1,76 +1,81 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using WebApi.Entities;
 
 namespace WebApi.Services {
-    public class FlowFunctions {
-        public List<double> ProcessFunction(long functionId, List<double> flow, int numFlow = 1, double loadFactor = 0.1)
-        {
-            List<double> list = new List<double>();
-            switch(functionId){
-             case 0:
+    public class FlowFunctions : IFunctionService {
+        public List<double> ProcessFunction (long functionId, List<double> flow, int numFlow, double loadFactor) {
+            double[] coeffs;
+            List<double> list = new List<double> ();
+            switch (functionId) {
+                case 1:
                     list = flow;
                     break;
-                case 1:
-                    list = PacketsPerDt(flow,numFlow,loadFactor);
-                    break;
                 case 2:
-                    list = mA(flow, numFlow);
+                    list = PacketsPerDt (flow, numFlow, loadFactor);
                     break;
                 case 3:
-                    list = dA(flow, numFlow);
+                    list = mA (flow, numFlow);
                     break;
                 case 4:
-                    list = Q(flow,numFlow,loadFactor);
+                    list = dA (flow, numFlow);
                     break;
                 case 5:
-                    list = mQDependsLoadFactor(flow,numFlow);
+                    list = Q (flow, numFlow, loadFactor);
                     break;
                 case 6:
-                    list = dQDependsLoadFactor(flow,numFlow);
+                    list = mQDependsLoadFactor (flow, numFlow);
                     break;
                 case 7:
-                    list = P(flow,numFlow,loadFactor);
+                    list = dQDependsLoadFactor (flow, numFlow);
                     break;
                 case 8:
-                    list = P0(flow,numFlow,loadFactor);
+                    list = P (flow, numFlow, loadFactor);
                     break;
                 case 9:
-                    list = V(flow,numFlow,loadFactor);
+                    list = P0 (flow, numFlow, loadFactor);
                     break;
                 case 10:
-                    list = E(flow,numFlow,loadFactor);
+                    list = V (flow, numFlow, loadFactor);
                     break;
                 case 11:
-                    list = mE(flow,numFlow);
+                    list = E (flow, numFlow, loadFactor);
                     break;
                 case 12:
-                    list = F(flow,numFlow);
+                    list = mE (flow, numFlow);
                     break;
                 case 13:
-                    list = Straight(float.Parse(AlphaLabel.Text.Replace(".", ",")), float.Parse(BettaLabel.Text.Replace(".", ",")));
+                    list = F (flow, numFlow);
                     break;
                 case 14:
-                    list = Parabola(float.Parse(AlphaLabel.Text.Replace(".", ",")), float.Parse(BettaLabel.Text.Replace(".", ",")));
+                    coeffs = CoeffsAprox (flow);
+                    list = Straight (coeffs[0], coeffs[1]);
                     break;
                 case 15:
-                    list = Aprox(float.Parse(AlphaLabel.Text.Replace(".", ",")), float.Parse(BettaLabel.Text.Replace(".", ",")));
+                    coeffs = CoeffsAprox (flow);
+                    list = Parabola (coeffs[0], coeffs[1]);
                     break;
                 case 16:
-                    list = KI(flow,numFlow,loadFactor);
+                    coeffs = CoeffsAprox (flow);
+                    list = Aprox (coeffs[0], coeffs[1]);
                     break;
                 case 17:
-                    list = PKI(flow,numFlow,loadFactor);
+                    list = KI (flow, numFlow, loadFactor);
                     break;
                 case 18:
-                    list = Disp2(flow,numFlow,loadFactor);
+                    list = PKI (flow, numFlow, loadFactor);
                     break;
                 case 19:
-                    list = Integral(flow,numFlow,loadFactor);
+                    list = Disp2 (flow, numFlow, loadFactor);
+                    break;
+                case 20:
+                    list = Integral (flow, numFlow, loadFactor);
                     break;
             }
             return list;
         }
+
         private double TimeExperiment (List<double> flow) {
             return flow.Last () - flow.First ();
         }
@@ -325,6 +330,10 @@ namespace WebApi.Services {
                 }
 
             return coeffs;
+        }
+
+        public List<Function> Get () {
+            throw new NotImplementedException ();
         }
     }
 }
