@@ -10,6 +10,8 @@ export class FlowsComponent implements OnInit {
     defaultFlows: Flow[] = [];
     userFlows: Flow[] = [];
     flowName = '';
+    isUpdate: boolean = false;
+    isLoading: boolean = true;
     @ViewChild('fileInput') fileInput;
 
     constructor(
@@ -19,10 +21,13 @@ export class FlowsComponent implements OnInit {
         this.flowService.getAll().subscribe(data => {
             this.defaultFlows = data.filter(x => x.userId === null);
             this.userFlows = data.filter(x => x.userId != null);
+            this.isLoading = false;
         });
     }
 
     upload() {
+        this.isUpdate = true;
+        const that = this;
         const fileBrowser = this.fileInput.nativeElement;
         if (fileBrowser.files && fileBrowser.files[0]) {
 
@@ -33,7 +38,7 @@ export class FlowsComponent implements OnInit {
             const reader = new FileReader();
             reader.onload = function (progressEvent) {
                 flowService.upload(flowName, JSON.stringify(this.result.split('\n'))).subscribe(
-                    data => { userFlows.push(data); }
+                    data => { userFlows.push(data); that.isUpdate = false; }
                 );
             };
             reader.readAsText(file);
