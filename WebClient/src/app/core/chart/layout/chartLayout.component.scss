@@ -1,88 +1,19 @@
-.chart-layout {
-    $chartSidebarWidth: 300px;
-    $navigantionPanelHeight: 40px;
-
-    padding: $commonElementOffset;
-    width: 100%;
-    height: 100%;
-
-    > .tab-panel {
-        $tabPanelWidth: calc(100% - #{$chartSidebarWidth + $commonElementOffset});
-
-        max-width: $tabPanelWidth;
-        width: $tabPanelWidth;
-        float: right;
+chart-layout {
+    > .chart-layout {
+        width: 100%;
         height: 100%;
-        position: relative;
-        
-        .nav {
-            padding-right: $navigantionPanelHeight;
-            height: $navigantionPanelHeight;
 
-            > .nav-item {
-                min-width: 0;
-
-                .nav-link {
-                    position: relative;
-                    height: $navigantionPanelHeight;
-                    @include text-overflow-with-ellipsis();
-                }
-            }
-        }
-
-        .tab-content {
-            height: calc(100% - #{$navigantionPanelHeight});
-        }
-
-        .add-tab-button {
-            position: absolute;
-            right: 0;
-            top: 0;
-            height: $navigantionPanelHeight;
-            width: $navigantionPanelHeight;
-        }
-
-        tab {
-            padding-top: $commonElementOffset;
+        > chart-sidebar {
+            width: 20%;
             height: 100%;
-
-            > chart-sidebar {
-                position: absolute;
-                left: -$chartSidebarWidth - $commonElementOffset;
-                top: 0;
-                width: $chartSidebarWidth;
-                height: 100%;
-            }
-    
-            > chart {
-            }
+            float: left;
         }
 
-        .tab-customizable  {
-            $iconWidth: 30px;
-
-            > .nav-link {
-                padding-right: $iconWidth;
-            }
-            .glyphicon {
-                float: right;
-                width: $iconWidth;
-                position: absolute;
-                right: 8px;
-            }
+        > chart-tabset {
+            width: 80%;
+            height: 100%;
+            float: right;
         }
-    }
-
-    > .add-tab-button {
-        $addTabButtonHeight: 50px;
-        $addTabButtonWidth: 2 * $addTabButtonHeight;
-
-        position: absolute;
-        top: 50%;
-        left: calc(50% - #{$addTabButtonWidth / 2});
-        height: $addTabButtonHeight;
-        width: $addTabButtonWidth;
-        text-transform: uppercase;
     }
 }
 

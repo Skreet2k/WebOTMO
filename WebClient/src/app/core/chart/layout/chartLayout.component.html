@@ -1,24 +1,4 @@
-<div class="chart-layout bg-white rounded">
-    <div class="tab-panel bg-light rounded" *ngIf="!isTabCollectionEmpty(); else elseBlock">
-        <tabset #tabset [justified]="true">
-                <button class="btn btn-secondary add-tab-button" (click)="addNewTab()">
-                    <i class="fa fa-plus fa-lg"></i>
-                </button>
-                <tab *ngFor="let tab of tabCollection | iterable"
-                        [heading]="tab.value.title"
-                        [active]="tab.value.active"
-                        (select)="tab.value.active = true"
-                        (deselect)="tab.value.active = false"
-                        [disabled]="tab.value.disabled"
-                        [removable]="tab.value.removable"
-                        (removed)="removeTabHandler(tab.key)"
-                        customClass="tab-customizable">
-                    <chart [chartDataCollection]="tab.value.data"></chart>
-                    <chart-sidebar [chartDataCollection]="tab.value.data" (chartDataCollectionChanged)="onDataChanged($event)"></chart-sidebar>
-                </tab>
-        </tabset>
-    </div>
-    <ng-template #elseBlock>
-        <button class="btn btn-secondary add-tab-button" (click)="addNewTab()">New tab</button>
-    </ng-template>
+<div class="chart-layout bg-white rounded" >
+    <chart-sidebar [activeTab]="activeTab" *ngIf="!isTabCollectionEmpty()"></chart-sidebar>
+    <chart-tabset></chart-tabset>
 </div>

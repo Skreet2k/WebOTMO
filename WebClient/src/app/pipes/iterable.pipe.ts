@@ -1,24 +1,23 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import * as _ from "lodash";
 
 /** Transform js object to iterable array.
  *  Example: 
  *  <span *ngFor="#entry of content | keys">           
- *      Key: {{entry.key}}, value: {{entry.value}}
+ *      key: {{entry.key}}, value: {{entry.value}}
  *  </span>
  */  
 @Pipe({
-  name: 'iterable',
+  name: "iterable",
   pure: false
 })
 export class IterablePipe implements PipeTransform {
-  transform(value, args: string[]): any {
-    const keys = [];
-    for (let key in value) {
-      keys.push({
-        key: key, 
-        value: value[key]
-      });
-    }
-    return keys;
+  transform(dictionary: _.Dictionary<any>, args: string[]): any {
+    return _.map(dictionary, (value, key) => {
+        return {
+          key: key, 
+          value: value
+        };
+    })
   }
 }

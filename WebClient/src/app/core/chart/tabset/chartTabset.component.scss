@@ -1,0 +1,78 @@
+chart-tabset {
+    > .chart-tabset {
+        $navigantionPanelHeight: 40px;
+        $tabPanelButtonsGap: 2px;
+
+        padding: $commonElementOffset;
+        height: 100%;
+        position: relative;
+
+        > .add-tab-button {
+            position: absolute;
+            right: $commonElementOffset;
+            height: $navigantionPanelHeight;
+            width: $navigantionPanelHeight;
+        }
+    
+        > .edit-tab-button {
+            position: absolute;
+            right: $navigantionPanelHeight + $tabPanelButtonsGap + $commonElementOffset;
+            height: $navigantionPanelHeight;
+            width: $navigantionPanelHeight;
+        }
+
+        > chart {
+            height: calc(100% - #{$navigantionPanelHeight});
+        }
+
+        > tabset {
+            > .nav {
+                padding-right: 2 * ($navigantionPanelHeight + $tabPanelButtonsGap);
+                height: $navigantionPanelHeight;
+        
+                > .nav-item {
+                    min-width: 0;
+        
+                    .nav-link {
+                        position: relative;
+                        height: $navigantionPanelHeight;
+                        @include text-overflow-with-ellipsis();
+                    }
+                }
+            }
+
+            > .tab-content {
+                tab {
+                    padding-top: $commonElementOffset;
+                    height: 100%;
+                }
+            }
+
+            .tab-customizable  {
+                $iconWidth: 30px;
+                
+                > .nav-link {
+                    padding-right: $iconWidth;
+                }
+                .glyphicon {
+                    float: right;
+                    width: $iconWidth;
+                    position: absolute;
+                    right: 8px;
+                }
+            }
+        }
+    }
+
+    > .add-tab-button {
+        $addTabButtonHeight: 50px;
+        $addTabButtonWidth: 2 * $addTabButtonHeight;
+
+        position: absolute;
+        top: 50%;
+        left: calc(50% - #{$addTabButtonWidth / 2});
+        height: $addTabButtonHeight;
+        width: $addTabButtonWidth;
+        text-transform: uppercase;
+    }
+}

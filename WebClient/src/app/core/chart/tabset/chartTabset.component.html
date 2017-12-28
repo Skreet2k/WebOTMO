@@ -1,0 +1,23 @@
+<div class="chart-tabset" *ngIf="!isTabCollectionEmpty(); else noData">
+    <button class="btn btn-secondary add-tab-button" title="Add new tab" (click)="addNewTab()">
+        <i class="fa fa-plus fa-lg"></i>
+    </button>
+    <button class="btn btn-secondary edit-tab-button" title="Edit current tab" (click)="editActiveTab()">
+        <i class="fa fa-gear fa-lg"></i>
+    </button>
+    <tabset #tabset [justified]="true">
+        <tab *ngFor="let tab of tabCollection"
+                [heading]="tab.title"
+                [active]="tab.active"
+                (select)="onTabSelected(tab)"
+                [disabled]="tab.disabled"
+                [removable]="tab.removable"
+                (removed)="onTabRemoved(tab)"
+                customClass="tab-customizable">
+        </tab>
+    </tabset>
+    <chart [chartDataCollection]="chartDisplayedData"></chart>
+</div>
+<ng-template #noData>
+    <button class="btn btn-secondary add-tab-button" title="Add new tab" (click)="addNewTab()">New tab</button>
+</ng-template>

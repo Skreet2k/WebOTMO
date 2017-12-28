@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { routing } from './app.routing';
 import { ChartsModule } from 'ng2-charts';
+import { ModalModule } from 'ngx-modialog';
+import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
 
 import { AppComponent } from './app.component';
 import { AlertComponent } from './alert/alert.component';
@@ -17,6 +19,8 @@ import { FlowComponent } from './flows/flow.component';
 import { ChartLayoutComponent } from './core/chart/layout/chartLayout.component';
 import { ChartSidebarComponent } from './core/chart/sidebar/chartSidebar.component';
 import { ChartComponent } from './core/chart/chart/chart.component';
+import { ChartTabsetComponent } from './core/chart/tabset/chartTabset.component';
+import { ChartTabCollectionProviderService } from './core/chart/chartTabCollectionProvider.service';
 
 import { AuthGuard } from './guards/auth.guard';
 import { AlertService } from './services/alert.service';
@@ -45,7 +49,8 @@ import { CompileDirective } from './derectives/compile.directive';
     IterablePipe,
     FlowsComponent,
     FlowComponent,
-    CompileDirective
+    CompileDirective,
+    ChartTabsetComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +58,9 @@ import { CompileDirective } from './derectives/compile.directive';
     HttpModule,
     routing,
     TabsModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    ModalModule.forRoot(),
+    BootstrapModalModule,
   ],
   providers: [
     AppConfig,
@@ -62,7 +69,8 @@ import { CompileDirective } from './derectives/compile.directive';
     AuthenticationService,
     UserService,
     FlowService,
-    FlowFunctionsService
+    FlowFunctionsService,
+    ChartTabCollectionProviderService
   ],
   bootstrap: [AppComponent]
 })

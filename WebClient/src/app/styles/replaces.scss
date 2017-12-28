@@ -2,10 +2,29 @@
     font-family: "FontAwesome";
 }
 
-.glyphicon-remove-circle:before {
+.glyphicon-remove-circle:before, {
     content: "\f00d";
 }
 
+.glyphicon-remove:before {
+    content: "\f00d";
+}
+
+// Seems like ngx-modialog bug is injected. Need to investigate why dialog layout breaks with flex style rules
+.modal {
+    &.fade.in {
+        opacity: 1; 
+    }
+
+    .modal-header {
+        display: block;
+    }
+}
+
+.modal-backdrop.fade.in {
+    opacity: 0.3;
+}
+
 .navbar-brand a {
- text-decoration: none;
+    text-decoration: none;
 }

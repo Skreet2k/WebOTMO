@@ -3,11 +3,13 @@
 @import "./app/styles/replaces.scss";
 @import "./app/styles/mixins.scss";
 @import "./app/styles/bootstrap-custom.scss";
+@import "./app/styles/dialog.scss";
 
 // Charts
 @import "./app/core/chart/layout/chartLayout.component.scss";
 @import "./app/core/chart/sidebar/chartSidebar.component.scss";
 @import "./app/core/chart/chart/chart.component.scss";
+@import "./app/core/chart/tabset/chartTabset.component.scss";
 
 // Layout
 @import "./app/layout/layout.component.scss";

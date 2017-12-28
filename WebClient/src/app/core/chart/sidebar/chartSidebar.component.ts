@@ -1,34 +1,40 @@
-import { Component, ChangeDetectionStrategy, Input, Output, OnChanges, EventEmitter, SimpleChanges } from "@angular/core";
-import { ChartDataCollectionEntry } from "../chart/chart.component";
+import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
+import { ChartTabCollectionProviderService, Tab } from "../chartTabCollectionProvider.service";
 import * as _ from "lodash";
 
 @Component({
     selector: "chart-sidebar",
     templateUrl: "./chartSidebar.component.html"
 })
-export class ChartSidebarComponent {
-    @Input() chartDataCollection: ChartDataCollectionEntry[];
-    @Output() chartDataCollectionChanged = new EventEmitter();
-    
+export class ChartSidebarComponent implements OnChanges {  
+    @Input() activeTab: Tab;
+
     public buttons: Button[];
 
-    ngOnChanges(changes: SimpleChanges) {
-        if (changes["chartDataCollection"] != null) {
+    constructor(private readonly chartTabCollectionProviderService: ChartTabCollectionProviderService) {
+    }
+
+    public ngOnChanges(changes: SimpleChanges) {
+        if (changes["activeTab"] != null) {
             this.buttons = [];
-            _.forEach(this.chartDataCollection, (dataEntry) => {
-                this.buttons.push({ title: dataEntry.label, id: dataEntry.id });
-            });
+            if (this.activeTab != null) {
+                _.forEach(this.activeTab.data, (dataEntry) => {
+                    this.buttons.push({ title: dataEntry.label, id: dataEntry.id });
+                });
+            }
         }
     }
 
     public toggleVisibility(entry: Button) {
-        const chartDataCollectionEntryToChange = _.find(this.chartDataCollection, dataEntry => dataEntry.id === entry.id);
-        chartDataCollectionEntryToChange.hidden = !chartDataCollectionEntryToChange.hidden;
-        this.chartDataCollectionChanged.emit(this.chartDataCollection);
+        const chartDataCollectionEntryToChange = _.find(this.activeTab.data, dataEntry => dataEntry.id === entry.id);
+        if (chartDataCollectionEntryToChange != null) {
+            chartDataCollectionEntryToChange.hidden = !chartDataCollectionEntryToChange.hidden;
+            this.chartTabCollectionProviderService.notifyActiveTabContentChanged();
+        }
     }
 }
 
 export type Button = {
     title: string,
-    id: number
+    id: string
 }
