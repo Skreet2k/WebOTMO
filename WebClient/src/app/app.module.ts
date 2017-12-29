@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { TabsModule } from 'ngx-bootstrap';
+import { TabsModule, BsDropdownModule } from 'ngx-bootstrap';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { routing } from './app.routing';
@@ -20,7 +20,7 @@ import { ChartLayoutComponent } from './core/chart/layout/chartLayout.component'
 import { ChartSidebarComponent } from './core/chart/sidebar/chartSidebar.component';
 import { ChartComponent } from './core/chart/chart/chart.component';
 import { ChartTabsetComponent } from './core/chart/tabset/chartTabset.component';
-import { ChartTabCollectionProviderService } from './core/chart/chartTabCollectionProvider.service';
+import { ChartCollectionProviderService } from './core/chart/chartTabCollectionProvider.service';
 
 import { AuthGuard } from './guards/auth.guard';
 import { AlertService } from './services/alert.service';
@@ -58,9 +58,10 @@ import { CompileDirective } from './derectives/compile.directive';
     HttpModule,
     routing,
     TabsModule.forRoot(),
+    BsDropdownModule.forRoot(),
     ChartsModule,
     ModalModule.forRoot(),
-    BootstrapModalModule,
+    BootstrapModalModule
   ],
   providers: [
     AppConfig,
@@ -70,7 +71,7 @@ import { CompileDirective } from './derectives/compile.directive';
     UserService,
     FlowService,
     FlowFunctionsService,
-    ChartTabCollectionProviderService
+    ChartCollectionProviderService
   ],
   bootstrap: [AppComponent]
 })

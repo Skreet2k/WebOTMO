@@ -8,13 +8,14 @@ import * as _ from "lodash";
     templateUrl: "./chart.component.html",
 })
 export class ChartComponent implements OnChanges {
-    @Input() chartDataCollection: ChartDataCollectionEntry[];
+    @Input() displayData: FormulaDisplayData[];
     @ViewChild(BaseChartDirective) private baseChart;
 
-    ngOnChanges(changes: SimpleChanges) {
-        // Dirty hack. Reason: BaseChartDirective does not react on manual hidden property changes
-        if (this.baseChart.chart != null && changes["chartDataCollection"] != null) { 
-            this.baseChart.datasets = changes["chartDataCollection"].currentValue;
+    public ngOnChanges(changes: SimpleChanges) {
+        // Dirty hack. Reason: BaseChartDirective doesn't react on manual hidden property changes
+        if (this.baseChart.chart != null && changes["displayData"] != null) { 
+            const transferData = changes["displayData"].currentValue;
+            this.baseChart.datasets = !_.isEmpty(transferData) ? transferData : [nullFormula]; // Otherwise chart will crash without any data inside
             this.baseChart.refresh();
         }
     }
@@ -66,7 +67,7 @@ export class ChartComponent implements OnChanges {
     }
 }
 
-export class ChartDataCollectionEntry { 
+export class FormulaDisplayData { 
     public readonly id: string;
 
     constructor(
@@ -77,3 +78,5 @@ export class ChartDataCollectionEntry {
         this.id = MathUtil.newGuid();
     }
 }
+
+var nullFormula: FormulaDisplayData = new FormulaDisplayData("null", [0], true)

@@ -3,21 +3,21 @@ import { MathUtil } from "../../../common/MathUtil";
 import * as _ from "lodash";
 import { Subscription } from "rxjs";
 import { Modal } from "ngx-modialog/plugins/bootstrap";
-import { ChartDataCollectionEntry } from "../chart/chart.component";
-import { ChartTabCollectionProviderService, Tab } from "../chartTabCollectionProvider.service";
+import { FormulaDisplayData } from "../chart/chart.component";
+import { ChartCollectionProviderService, Tab } from "../chartTabCollectionProvider.service";
 
 @Component({
     selector: "chart-tabset",
     templateUrl: "./chartTabset.component.html"
 })
 export class ChartTabsetComponent implements OnInit, OnDestroy {
-    public chartDisplayedData: ChartDataCollectionEntry[]
+    public displayData: FormulaDisplayData[]
 
     public activeTabContentChangedSubscription: Subscription;
 
     constructor(
         private readonly modal: Modal, 
-        private readonly chartTabCollectionProviderService: ChartTabCollectionProviderService) {
+        private readonly chartTabCollectionProviderService: ChartCollectionProviderService) {
     }
 
     public ngOnInit() {
@@ -31,7 +31,7 @@ export class ChartTabsetComponent implements OnInit, OnDestroy {
 
     private refreshChartDisplayedData() {
         const activeTab = this.chartTabCollectionProviderService.getActiveTab();
-        this.chartDisplayedData = activeTab != null ? _.clone(activeTab.data) : [];
+        this.displayData = activeTab != null ? _.clone(activeTab.data) : [];
     }
 
     public get tabCollection(): Tab[] {

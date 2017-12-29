@@ -1,16 +1,37 @@
 chart-sidebar {
+    $formulaButtonHeight: 3em;
+    $formulaButtonMargin: 0.5em;
+
     padding: $commonElementOffset;
     height: 100%;
 
+    .btn {
+        @include text-overflow-with-ellipsis();
+        height: $formulaButtonHeight;
+    }
+
     > .chart-sidebar {
         height: 100%;
-        overflow-y: auto;
+
+        > .btn-panel {
+            padding: $commonElementOffset;
+            overflow-y: auto;
+            height: calc(100% - #{$formulaButtonHeight});
+
+            > .btn-group {
+                width: 100%;
+                margin-bottom: $formulaButtonMargin;
     
-        > button {
+                > .formula-name {
+                    width: 100%;
+                    @include text-overflow-with-ellipsis();
+                }
+            }
+        }
+
+        > .add-formula-button {
             width: 100%;
-            height: 3em;
-            margin-bottom: 0.5em;
-            @include text-overflow-with-ellipsis();
+            border-radius: 0;
         }
     }
 }

@@ -1,4 +1,6 @@
 chart-tabset {
+    padding: $commonElementOffset;
+
     > .chart-tabset {
         $navigantionPanelHeight: 40px;
         $tabPanelButtonsGap: 2px;

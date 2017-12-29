@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
-import { ChartTabCollectionProviderService, Tab } from "../chartTabCollectionProvider.service";
+import { ChartCollectionProviderService, Tab } from "../chartTabCollectionProvider.service";
+import { Modal } from "ngx-modialog/plugins/bootstrap";
 import * as _ from "lodash";
 
 @Component({
@@ -9,9 +10,9 @@ import * as _ from "lodash";
 export class ChartSidebarComponent implements OnChanges {  
     @Input() activeTab: Tab;
 
-    public buttons: Button[];
+    public buttons: FormulaButton[];
 
-    constructor(private readonly chartTabCollectionProviderService: ChartTabCollectionProviderService) {
+    constructor(private readonly chartTabCollectionProviderService: ChartCollectionProviderService) {
     }
 
     public ngOnChanges(changes: SimpleChanges) {
@@ -25,16 +26,27 @@ export class ChartSidebarComponent implements OnChanges {
         }
     }
 
-    public toggleVisibility(entry: Button) {
-        const chartDataCollectionEntryToChange = _.find(this.activeTab.data, dataEntry => dataEntry.id === entry.id);
-        if (chartDataCollectionEntryToChange != null) {
-            chartDataCollectionEntryToChange.hidden = !chartDataCollectionEntryToChange.hidden;
+    public toggleFormulaVisibility(entry: FormulaButton) {
+        const formulaToChange = _.find(this.activeTab.data, dataEntry => dataEntry.id === entry.id);
+        if (formulaToChange != null) {
+            formulaToChange.hidden = !formulaToChange.hidden;
             this.chartTabCollectionProviderService.notifyActiveTabContentChanged();
         }
     }
+
+    public removeFormula(entry: FormulaButton) {
+        _.remove(this.buttons, button => button.id === entry.id);
+        this.chartTabCollectionProviderService.removeActiveFormula(entry.id);
+    }
+
+    public editFormula(entry: FormulaButton) {
+    }
+
+    public addFormula() {
+    }
 }
 
-export type Button = {
+export type FormulaButton = {
     title: string,
     id: string
 }

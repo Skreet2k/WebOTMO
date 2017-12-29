@@ -1,4 +1,4 @@
-<div class="chart-tabset" *ngIf="!isTabCollectionEmpty(); else noData">
+<div class="chart-tabset bg-light rounded" *ngIf="!isTabCollectionEmpty(); else noData">
     <button class="btn btn-secondary add-tab-button" title="Add new tab" (click)="addNewTab()">
         <i class="fa fa-plus fa-lg"></i>
     </button>
@@ -16,7 +16,7 @@
                 customClass="tab-customizable">
         </tab>
     </tabset>
-    <chart [chartDataCollection]="chartDisplayedData"></chart>
+    <chart [displayData]="displayData"></chart>
 </div>
 <ng-template #noData>
     <button class="btn btn-secondary add-tab-button" title="Add new tab" (click)="addNewTab()">New tab</button>

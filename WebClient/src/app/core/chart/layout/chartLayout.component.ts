@@ -1,12 +1,12 @@
 import { Component } from "@angular/core";
-import { ChartTabCollectionProviderService } from "../chartTabCollectionProvider.service";
+import { ChartCollectionProviderService } from "../chartTabCollectionProvider.service";
 
 @Component({
     selector: "chart-layout",
     templateUrl: "./chartLayout.component.html"
 })
 export class ChartLayoutComponent {
-    constructor(private readonly chartTabCollectionProviderService: ChartTabCollectionProviderService) {
+    constructor(private readonly chartTabCollectionProviderService: ChartCollectionProviderService) {
     }
 
     public get activeTab() {

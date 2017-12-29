@@ -1,11 +1,11 @@
 import { Injectable, OnDestroy } from "@angular/core";
-import { ChartDataCollectionEntry } from "./chart/chart.component";
+import { FormulaDisplayData } from "./chart/chart.component";
 import { MathUtil } from "../../common/MathUtil";
 import { Subject, Observable } from "rxjs";
 import * as _ from "lodash";
 
 @Injectable()
-export class ChartTabCollectionProviderService implements OnDestroy {
+export class ChartCollectionProviderService implements OnDestroy {
     private tabCollection: _.Dictionary<Tab> = {};
     private activeTabId: string;
 
@@ -72,6 +72,14 @@ export class ChartTabCollectionProviderService implements OnDestroy {
         }
     }
 
+    public removeActiveFormula(formulaId: string) {
+        const actibeTab = this.getActiveTab();
+        const removedFormula = _.remove(actibeTab.data, datum => datum.id === formulaId);
+        if (removedFormula != null) {
+            this.notifyActiveTabContentChanged();
+        }
+    }
+
     private load() {
         // TODO: All source data should be loaded from DB
         for(let i = 0; i < 3; i++) {
@@ -87,10 +95,10 @@ export class ChartTabCollectionProviderService implements OnDestroy {
         const activeTabInternal = null;
     }
 
-    public getRandomDataSet(): ChartDataCollectionEntry[] {
-        const data: ChartDataCollectionEntry[] = [];
+    public getRandomDataSet(): FormulaDisplayData[] {
+        const data: FormulaDisplayData[] = [];
         for (let i = 0; i < 3; i++) {
-            data.push(new ChartDataCollectionEntry("Series" + _.random(0, 100), _.map([5, 10, 20, 30, 40, 50, 60, 70, 50, 10], val => _.random(0, val))));
+            data.push(new FormulaDisplayData("Series" + _.random(0, 100), _.map([5, 10, 20, 30, 40, 50, 60, 70, 50, 10], val => _.random(0, val))));
         }
         return data;
     }
@@ -101,7 +109,7 @@ export class Tab {
     
     constructor(
         public title: string,
-        public data?: ChartDataCollectionEntry[],
+        public data?: FormulaDisplayData[],
         public active = false,
         public removable = true,
         public disabled = false,
