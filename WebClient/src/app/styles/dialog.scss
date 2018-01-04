@@ -1,7 +1,26 @@
-.modal-centered {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
+.modal {
+    &.fade.in {
+        // Seems like ngx-modialog bug is injected. Need to investigate why dialog layout breaks with flex style rules
+        opacity: 1; 
+    }
+
+    .modal-header {
+        display: block;
+    }
+
+    .modal-container {
+        position: absolute;
+    }
+
+    .modal-content {
+        border: none;
+    }
+
+    .modal-hg {
+        max-width: 900px;
+    }
+}
+
+.modal-backdrop.fade.in {
+    opacity: 0.3;
 }

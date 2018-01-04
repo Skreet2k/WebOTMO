@@ -1,6 +1,8 @@
 import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
 import { ChartCollectionProviderService, Tab } from "../chartTabCollectionProvider.service";
-import { Modal } from "ngx-modialog/plugins/bootstrap";
+import { BSModalContext } from "ngx-modialog/plugins/bootstrap";
+import { Modal, overlayConfigFactory } from "ngx-modialog";
+import { ModifyFormulaDialog } from "../modifyFormulaDialog/modifyFormulaDialog.component";
 import * as _ from "lodash";
 
 @Component({
@@ -12,7 +14,9 @@ export class ChartSidebarComponent implements OnChanges {
 
     public buttons: FormulaButton[];
 
-    constructor(private readonly chartTabCollectionProviderService: ChartCollectionProviderService) {
+    constructor(
+        private readonly chartTabCollectionProviderService: ChartCollectionProviderService,
+        private readonly modal: Modal) {
     }
 
     public ngOnChanges(changes: SimpleChanges) {
@@ -43,6 +47,15 @@ export class ChartSidebarComponent implements OnChanges {
     }
 
     public addFormula() {
+        const dialog = this.modal.open(ModifyFormulaDialog, overlayConfigFactory({}, BSModalContext));
+
+        dialog.result.then(resultPromise => {
+            return resultPromise.result
+              .then(
+                 result => console.log('confirm', result),
+                 () => console.log('decline', 'result')
+              );
+          });
     }
 }
 

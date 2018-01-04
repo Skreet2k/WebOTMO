@@ -16,11 +16,13 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { FlowsComponent } from './flows/flows.component';
 import { FlowComponent } from './flows/flow.component';
+import { PromptModalDialog } from './common/dialog/prompt/promptDialog.component';
 import { ChartLayoutComponent } from './core/chart/layout/chartLayout.component';
 import { ChartSidebarComponent } from './core/chart/sidebar/chartSidebar.component';
 import { ChartComponent } from './core/chart/chart/chart.component';
 import { ChartTabsetComponent } from './core/chart/tabset/chartTabset.component';
 import { ChartCollectionProviderService } from './core/chart/chartTabCollectionProvider.service';
+import { ModifyFormulaDialog } from './core/chart/modifyFormulaDialog/modifyFormulaDialog.component';
 
 import { AuthGuard } from './guards/auth.guard';
 import { AlertService } from './services/alert.service';
@@ -50,7 +52,13 @@ import { CompileDirective } from './derectives/compile.directive';
     FlowsComponent,
     FlowComponent,
     CompileDirective,
-    ChartTabsetComponent
+    ChartTabsetComponent,
+    PromptModalDialog,
+    ModifyFormulaDialog
+  ],
+  entryComponents: [
+    PromptModalDialog,
+    ModifyFormulaDialog
   ],
   imports: [
     BrowserModule,

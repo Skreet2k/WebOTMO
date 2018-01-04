@@ -1,0 +1,18 @@
+<div class="container-fluid modal-container rounded">
+    <div class="modal-header bg-info text-white">
+        <button class="close text-white" (click)="close()" type="button">
+            <span aria-hidden="true">×</span>
+        </button>
+        <h4>Modify formula dialog</h4>
+    </div>
+    <div class="modal-body bg-white">
+        <h1>Choose your destiny</h1>
+        <p class="lead">I received an injection of the number <strong>{{context.num1}}</strong> and the number <strong>{{context.num2}}</strong></p>
+        <span>What is the sum?</span>
+            <input class="form-control" type="text" #answer (keyup)="onKeyUp(answer.value)" autofocus>
+    </div>
+    <div class="modal-footer bg-info">
+        <button type="button" class="btn btn-info add-formula-button" (click)="close()">Cancel</button>
+        <button type="button" class="btn btn-info add-formula-button" (click)="close()">Ok</button>
+    </div>
+</div>

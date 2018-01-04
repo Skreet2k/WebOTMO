@@ -5,7 +5,7 @@ import { AppConfig } from '../app.config';
 import { Flow } from '../models/flow';
 
 @Injectable()
-export class FlowService {
+export class FlowService { // TODO: We should cache flows. Request them every time is bad.
   constructor(private http: Http, private config: AppConfig) {}
 
   getAll() {

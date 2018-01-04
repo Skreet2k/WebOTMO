@@ -2,9 +2,10 @@ import { Component, OnDestroy, OnInit} from "@angular/core";
 import { MathUtil } from "../../../common/MathUtil";
 import * as _ from "lodash";
 import { Subscription } from "rxjs";
-import { Modal } from "ngx-modialog/plugins/bootstrap";
+import { Modal, overlayConfigFactory } from "ngx-modialog";
 import { FormulaDisplayData } from "../chart/chart.component";
 import { ChartCollectionProviderService, Tab } from "../chartTabCollectionProvider.service";
+import { PromptDialogContext, PromptModalDialog } from "../../../common/dialog/prompt/promptDialog.component";
 
 @Component({
     selector: "chart-tabset",
@@ -50,30 +51,28 @@ export class ChartTabsetComponent implements OnInit, OnDestroy {
         return _.isEmpty(this.tabCollection);
     }
 
-    public openEditTabDialog(dialogTitle?: string): Promise<string> {
+    public openEditTabDialog(dialogTitle: string, tabTitle?: string): Promise<string> {
         // TODO: There should be available to customize chart options
-        return this.modal.prompt()
-            .size("sm")
-            .showClose(true)
-            .title(dialogTitle != null ? dialogTitle : "Rename tab")
-            .body("Enter tab name")
-            .dialogClass("modal-centered")
-            .open()
-            .result;
+        return this.modal.open(PromptModalDialog, overlayConfigFactory({ 
+            "title": dialogTitle,
+            "bodyContent": "Enter tab name",
+            "promptText": tabTitle
+        }, PromptDialogContext)).result;
     }
 
     public editActiveTab() {
-        this.openEditTabDialog()
+        const activeTab = this.chartTabCollectionProviderService.getActiveTab();
+        this.openEditTabDialog("Rename tab", activeTab.title)
             .then(result => {
-                this.chartTabCollectionProviderService.getActiveTab().title = result;
-            });
+                activeTab.title = result;
+            }, () => {});
     }
 
     public addNewTab(): void {
         this.openEditTabDialog("Add new tab")
             .then(result => {
                 const newTab = new Tab(result);
-                this.chartTabCollectionProviderService.addNewTab(newTab);
-            });
+                this.chartTabCollectionProviderService.addNewTab(newTab)
+            }, () => {});
     }
 }
