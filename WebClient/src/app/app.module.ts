@@ -36,6 +36,9 @@ import { AppConfig } from './app.config';
 import { IterablePipe } from './pipes/iterable.pipe';
 import { CompileDirective } from './derectives/compile.directive';
 
+import 'hammerjs';
+import 'chartjs-plugin-zoom';
+
 @NgModule({
   declarations: [
     AppComponent,
