@@ -12,6 +12,8 @@ export class FlowsComponent implements OnInit {
     flowName = '';
     isUpdate: boolean = false;
     isLoading: boolean = true;
+    startPacket: number = 1;
+    endPacket: number = 999;
     @ViewChild('fileInput') fileInput;
 
     constructor(
@@ -35,9 +37,11 @@ export class FlowsComponent implements OnInit {
             const flowService = this.flowService;
             const flowName = this.flowName;
             const userFlows = this.userFlows;
+            const startPacket = this.startPacket;
+            const endPacket = this.endPacket;
             const reader = new FileReader();
             reader.onload = function (progressEvent) {
-                flowService.upload(flowName, JSON.stringify(this.result.split('\n'))).subscribe(
+                flowService.upload(flowName, JSON.stringify(this.result.split('\n').slice(startPacket,endPacket))).subscribe(
                     data => { userFlows.push(data); that.isUpdate = false; }
                 );
             };

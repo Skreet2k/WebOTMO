@@ -4,10 +4,12 @@
       <div class="list-group">
         <span class="list-group-item bg-secondary">Your Flows</span>
         <div class="text-center" *ngIf="isLoading">
-          <span class="list-group-item text-dark"><i class="fa fa-spinner fa-pulse fa-fw fa-4x"></i></span>
+          <span class="list-group-item text-dark">
+            <i class="fa fa-spinner fa-pulse fa-fw fa-4x"></i>
+          </span>
         </div>
         <div *ngIf="!isLoading">
-          <span class="list-group-item text-dark" *ngIf="userFlows.length == 0">Not one thread flow added</span>        
+          <span class="list-group-item text-dark" *ngIf="userFlows.length == 0">Not one thread flow added</span>
           <a class="list-group-item list-group-item-action text-dark" [routerLink]="['../flow', flow.id]" *ngFor="let flow of userFlows">
             {{flow.name}}
           </a>
@@ -18,13 +20,15 @@
       <div class="list-group">
         <span class="list-group-item bg-secondary">Default Flows</span>
         <div class="text-center" *ngIf="isLoading">
-          <span class="list-group-item text-dark"><i class="fa fa-spinner fa-pulse fa-fw fa-4x"></i></span>
+          <span class="list-group-item text-dark">
+            <i class="fa fa-spinner fa-pulse fa-fw fa-4x"></i>
+          </span>
         </div>
-        <div *ngIf="!isLoading"> 
-        <span class="list-group-item text-dark" *ngIf="defaultFlows.length == 0">Not one thread flow added</span>
-        <span class="list-group-item text-dark" *ngFor="let flow of defaultFlows">
-          {{flow.name}}
-        </span>
+        <div *ngIf="!isLoading">
+          <span class="list-group-item text-dark" *ngIf="defaultFlows.length == 0">Not one thread flow added</span>
+          <span class="list-group-item text-dark" *ngFor="let flow of defaultFlows">
+            {{flow.name}}
+          </span>
         </div>
       </div>
     </div>
@@ -38,7 +42,19 @@
             <span class="custom-file-control form-control form-control-sm"></span>
           </label>
           <small class="form-text text-muted">.txt file with arrival times of packets separated by line wrapping</small>
-          <button [disabled]="isUpdate" type="button" class="btn btn-sm btn-success my-2" (click)="upload()">Upload<i class="fa fa-spinner fa-pulse fa-fw ml-2" *ngIf="isUpdate"></i></button>
+          <div class="form-row my-2">
+            <div class="col">
+              <small>First packet index</small>
+              <input type="number" class="form-control form-control-sm" placeholder="First name" min="0" [(ngModel)]="startPacket">
+            </div>
+            <div class="col">
+              <small>Last packet index</small>
+              <input type="text" class="form-control form-control-sm" placeholder="Last name" [(ngModel)]="endPacket">
+            </div>
+          </div>
+          <button [disabled]="isUpdate" type="button" class="btn btn-sm btn-success my-2" (click)="upload()">Upload
+            <i class="fa fa-spinner fa-pulse fa-fw ml-2" *ngIf="isUpdate"></i>
+          </button>
         </li>
       </ul>
     </div>
