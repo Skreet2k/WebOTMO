@@ -20,13 +20,33 @@ export class ChartComponent implements OnChanges {
         }
     }
 
-    public lineChartLabels:Array<any> = ["January", "February", "March", "April", "May", "June", "July", "1", "2", "3"];
+    public lineChartLabels:Array<any> = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
     public lineChartOptions:any = {
         responsive: true,
         maintainAspectRatio: false,
         legend: {
             display: false
-        }};
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                ticks: {
+                    autoSkip: true,
+                    maxTicksLimit: 10,
+                }
+            }]
+        },
+        pan: {
+            enabled: true,
+            mode: 'xy',
+            speed: 1
+        },
+        zoom: {
+            enabled: true,
+            drag: false,
+            mode: 'y'
+        }
+    }
 
     public lineChartColors:Array<any> = [
     { // grey
