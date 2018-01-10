@@ -33,7 +33,7 @@ export class ChartTabsetComponent implements OnInit, OnDestroy {
 
     private refreshChartDisplayedData() {
         const activeTab = this.chartTabCollectionProviderService.getActiveTab();
-        this.displayData = activeTab != null ? _.clone(activeTab.data) : [];
+        this.displayData = activeTab != null ? _.cloneDeep(activeTab.data) : [];
     }
 
     public get tabCollection(): Tab[] {

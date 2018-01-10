@@ -12,13 +12,13 @@ export class ListComponent {
     }
 
     public onItemClicked(item: ListItem) {
+        item.onClickAction();
         if (this.model.selectable) {
             _.forEach(this.model.items, item => {
                 item.active = false
             });
             item.active = true;
         }
-        item.onClickAction();
     }
 }
 
