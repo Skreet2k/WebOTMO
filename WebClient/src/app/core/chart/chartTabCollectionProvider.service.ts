@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from "@angular/core";
-import { FormulaDisplayData } from "./chart/chart.component";
+import { FlowChartDataItem } from "./chart/chart.component";
 import { MathUtil } from "../../common/MathUtil";
 import { Subject, Observable } from "rxjs";
 import * as _ from "lodash";
@@ -66,18 +66,43 @@ export class ChartCollectionProviderService implements OnDestroy {
             console.error(`[ChartTabCollectionProviderService.removeTab] There is no tab with such id ${tab.id}.`);
             return;
         }
+        const nextActiveTabId = this.getClosestTabId(tab.id);
         this.tabCollection = _.omit(this.tabCollection, tab.id);
-        if (_.isEmpty(this.tabCollection)) {
+        if (nextActiveTabId == null) {
             this.setActiveTab(null);
+        } else {
+            this.setActiveTab(nextActiveTabId);
         }
     }
 
-    public removeActiveFormula(formulaId: string) {
+    private getClosestTabId(tabId: string): string {
+        const tabCollectionKeys = _.keys(this.tabCollection);
+        for (let index = 0; index < tabCollectionKeys.length; index++) {
+            if (tabCollectionKeys[index] === tabId) {
+                if (this.tabCollection[tabCollectionKeys[index + 1]] != null) {
+                    return tabCollectionKeys[index + 1];
+                } else if (this.tabCollection[tabCollectionKeys[index - 1]] != null) {
+                    return tabCollectionKeys[index - 1];
+                } else {
+                    return null;
+                }
+            }
+        }
+        return null;
+    };
+
+    public removeFlow(flowId: string) {
         const actibeTab = this.getActiveTab();
-        const removedFormula = _.remove(actibeTab.data, datum => datum.id === formulaId);
+        const removedFormula = _.remove(actibeTab.data, datum => datum.id === flowId);
         if (removedFormula != null) {
             this.notifyActiveTabContentChanged();
         }
+    }
+
+    public addFlow(flow: FlowChartDataItem) {
+        const actibeTab = this.getActiveTab();
+        actibeTab.data.push(flow);
+        this.notifyActiveTabContentChanged();
     }
 
     private load() {
@@ -95,10 +120,12 @@ export class ChartCollectionProviderService implements OnDestroy {
         const activeTabInternal = null;
     }
 
-    public getRandomDataSet(): FormulaDisplayData[] {
-        const data: FormulaDisplayData[] = [];
+    public getRandomDataSet(): FlowChartDataItem[] {
+        const data: FlowChartDataItem[] = [];
         for (let i = 0; i < 3; i++) {
-            data.push(new FormulaDisplayData("Series" + _.random(0, 100), _.map([5, 10, 20, 30, 40, 50, 60, 70, 50, 10], val => _.random(0, val))));
+            const dataItem = new FlowChartDataItem(_.map([5, 10, 20, 30, 40, 50, 60, 70, 50, 10], val => _.random(0, val)));
+            dataItem.displayOptions.displayedName = "Series " + _.random(0, 100);
+            data.push(dataItem);
         }
         return data;
     }
@@ -109,7 +136,7 @@ export class Tab {
     
     constructor(
         public title: string,
-        public data?: FormulaDisplayData[],
+        public data?: FlowChartDataItem[],
         public active = false,
         public removable = true,
         public disabled = false,

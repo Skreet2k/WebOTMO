@@ -1,17 +1,17 @@
 <div class="chart-sidebar bg-white rounded">
     <div class="btn-panel">
         <div class="btn-group" dropdown container="body" placement="bottom right" *ngFor="let button of buttons">
-            <button type="button" class="btn btn-secondary formula-name" (click)="toggleFormulaVisibility(button)">
+            <button type="button" class="btn btn-secondary flow-name" (click)="editFlow(button)">
                 {{button.title}}
             </button>
             <button type="button" dropdownToggle class="btn btn-secondary dropdown-toggle">
                 <span class="caret"></span>
             </button>
             <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
-                <li role="menuitem"><a class="dropdown-item" (click)="removeFormula(button)">Remove formula</a></li>
-                <li role="menuitem"><a class="dropdown-item" (click)="editFormula(button)">Edit formula</a></li>
+                <li role="menuitem"><a class="dropdown-item" (click)="removeFlow(button)">Remove</a></li>
+                <li role="menuitem"><a class="dropdown-item" (click)="toggleFlowVisibility(button)">Hide/Show</a></li>
             </ul>
         </div>
     </div>
-    <button type="button" class="btn btn-info add-formula-button" (click)="addFormula()">Add formula</button>
+    <button type="button" class="btn btn-info add-flow-button" (click)="addFlow()">Add flow</button>
 </div>

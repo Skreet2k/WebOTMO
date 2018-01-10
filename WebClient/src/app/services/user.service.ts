@@ -3,39 +3,32 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
 import { AppConfig } from '../app.config';
 import { User } from '../models/user';
+import { SecurityPrincipal } from '../core/auth/securityPrincipal';
 
 @Injectable()
 export class UserService {
     constructor(private http: Http, private config: AppConfig) { }
 
     getAll() {
-        return this.http.get(this.config.apiUrl + '/users', this.jwt()).map((response: Response) => response.json());
+        return this.http.get(this.config.apiUrl + '/users', SecurityPrincipal.createRequestOptionsWithUserJSONWebToken())
+            .map((response: Response) => response.json());
     }
 
     getById(id: string) {
-        return this.http.get(this.config.apiUrl + '/users/' + id, this.jwt()).map((response: Response) => response.json());
+        return this.http.get(this.config.apiUrl + '/users/' + id, SecurityPrincipal.createRequestOptionsWithUserJSONWebToken())
+            .map((response: Response) => response.json());
     }
 
     create(user: User) {
-        return this.http.post(this.config.apiUrl + '/Users/Register', user, this.jwt());
+        return this.http.post(this.config.apiUrl + '/Users/Register', user, SecurityPrincipal.createRequestOptionsWithUserJSONWebToken());
     }
 
     update(user: User) {
-        return this.http.put(this.config.apiUrl + '/users/' + user.id, user, this.jwt());
+        return this.http.put(this.config.apiUrl + '/users/' + user.id, user, SecurityPrincipal.createRequestOptionsWithUserJSONWebToken());
     }
 
     delete(id: string) {
-        return this.http.delete(this.config.apiUrl + '/users/' + id, this.jwt());
-    }
-
-    // private helper methods
-
-    private jwt() {
-        // create authorization header with jwt token
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser && currentUser.token) {
-            let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token});
-            return new RequestOptions({ headers: headers });
-        }
+        return this.http.delete(this.config.apiUrl + '/users/' + id, SecurityPrincipal.createRequestOptionsWithUserJSONWebToken());
     }
 }
+

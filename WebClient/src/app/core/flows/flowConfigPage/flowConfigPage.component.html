@@ -1,0 +1,18 @@
+<div class="row-fluid">
+    <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4 rounded text-dark bg-light p-3">
+        <p class="font-weight-bold">Edit flow properties</p>
+        <div class="text-center" *ngIf="isLoading; else contentLoaded">
+            <i class="fa fa-spinner fa-pulse fa-fw fa-4x"></i>      
+        </div>
+        <ng-template #contentLoaded>
+            <input type="text" class="form-control my-2" [(ngModel)]="flow.name">
+            <label class="custom-file my-2 w-100">
+                <input type="file" accept="text/plain" #fileInput class="custom-file-input">
+                <span class="custom-file-control form-control form-control-sm"></span>
+            </label>
+            <small class="form-text text-muted">.txt file with arrival times of packets separated by line wrapping</small>
+            <button [disabled]="isUpdate" class="btn btn-sm btn-success my-2" (click)="update()">Update<i class="fa fa-spinner fa-pulse fa-fw ml-2" *ngIf="isUpdate"></i></button>
+            <button class="btn btn-sm btn-secondary" (click)="this.redirectToFlowsPage()">Cancel</button>
+        </ng-template>
+    </div>
+</div>

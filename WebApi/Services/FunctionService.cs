@@ -1,10 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Services;
 using WebApi.Entities;
 
 namespace WebApi.Services {
+    public interface IFunctionService {
+        List<double> ProcessFunction(long functionId, List<double> flow, int numFlow, double loadFactor);
+        IEnumerable<Function> GetFunctions();
+    }
+
     public class FlowFunctions : IFunctionService {
+        private OtmoContext _context;
+
+        public FlowFunctions() {
+            _context = new OtmoContext();
+        }
+
         public List<double> ProcessFunction (long functionId, List<double> flow, int numFlow, double loadFactor) {
             double[] coeffs;
             List<double> list = new List<double> ();
@@ -332,8 +344,8 @@ namespace WebApi.Services {
             return coeffs;
         }
 
-        public List<Function> Get () {
-            throw new NotImplementedException ();
+        public IEnumerable<Function> GetFunctions () {
+            return _context.Functions.ToList();
         }
     }
 }

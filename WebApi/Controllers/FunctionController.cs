@@ -1,8 +1,5 @@
 using System.Collections.Generic;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using WebApi.Dtos;
@@ -12,6 +9,9 @@ namespace WebApi.Controllers {
     [Authorize]
     [Route ("[controller]")]
     public class FunctionController : Controller {
+        private readonly IFunctionService _functionService;
+        private readonly IFlowService _flowService;
+
         public FunctionController (IFunctionService functionService, IFlowService flowService) {
             _functionService = functionService;
             _flowService = flowService;
@@ -19,19 +19,18 @@ namespace WebApi.Controllers {
 
         [HttpGet ("get")]
         public IActionResult Get () {
-            return Ok (_functionService.Get ());
+            return Ok (_functionService.GetFunctions ());
         }
 
-        [HttpGet ("processFunction")]
-        public IActionResult ProcessFunction (long functionId, long flowId, int numFlow = 1, double loadFactor = 0.1) {
+        [HttpPost ("processFunction")]
+        public IActionResult ProcessFunction([FromBody]FunctionDto function) {
 
-            var flow = _flowService.GetFlowWithData (flowId);
-            var data = JsonConvert.DeserializeObject<List<double>> (flow.Data);
+            var flow = _flowService.GetFlowWithData(function.flowId);
+            var data = JsonConvert.DeserializeObject<List<double>>(flow.Data);
 
-            return Ok (_functionService.ProcessFunction (functionId, data, numFlow, loadFactor));
+            var result = _functionService.ProcessFunction (
+                function.Id, data, function.numberOfServiceUnits ?? 1, function.loadFactor ?? 0.1);
+            return Ok(result);
         }
-
-        private readonly IFunctionService _functionService;
-        private readonly IFlowService _flowService;
     }
 }

@@ -14,8 +14,8 @@ namespace WebApi.Services {
         FlowWithDataDto GetFlowWithData (long id);
         Task<FlowDto> Upload (FlowWithDataDto flowDto);
         Task<FlowDto> Update (FlowWithDataDto flowDto);
-
     }
+
     public class FlowService : IFlowService {
         private OtmoContext _context;
         private IIdentityService _identityService;

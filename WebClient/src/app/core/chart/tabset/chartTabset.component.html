@@ -11,9 +11,10 @@
                 [active]="tab.active"
                 (select)="onTabSelected(tab)"
                 [disabled]="tab.disabled"
-                [removable]="tab.removable"
-                (removed)="onTabRemoved(tab)"
                 customClass="tab-customizable">
+            <ng-template tabHeading>
+                <button class="close" (click)=removeTab(tab)><i class="fa fa-times"></i></button>
+            </ng-template>
         </tab>
     </tabset>
     <chart [displayData]="displayData"></chart>

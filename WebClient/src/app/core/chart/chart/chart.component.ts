@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges, ViewChild } from "@angular/core";
 import { MathUtil } from "../../../common/MathUtil";
 import { BaseChartDirective } from 'ng2-charts';
+import { ProcessFunctionRequestArgs } from "../../flows/flowFunctions.service"
 import * as _ from "lodash";
 
 @Component({
@@ -8,20 +9,25 @@ import * as _ from "lodash";
     templateUrl: "./chart.component.html",
 })
 export class ChartComponent implements OnChanges {
-    @Input() displayData: FormulaDisplayData[];
     @ViewChild(BaseChartDirective) private baseChart;
 
-    public ngOnChanges(changes: SimpleChanges) {
-        // Dirty hack. Reason: BaseChartDirective doesn't react on manual hidden property changes
-        if (this.baseChart.chart != null && changes["displayData"] != null) { 
-            const transferData = changes["displayData"].currentValue;
-            this.baseChart.datasets = !_.isEmpty(transferData) ? transferData : [nullFormula]; // Otherwise chart will crash without any data inside
-            this.baseChart.refresh();
-        }
+    private displayDataInternal: FlowChartDataItem[];
+    public get displayData() {
+        return this.displayDataInternal;
     }
+    @Input()
+    public set displayData(data: FlowChartDataItem[]) {
+        const visibleData = _.filter(data, dataItem => !dataItem.displayOptions.hidden);
+        this.displayDataInternal = !_.isEmpty(visibleData) ? visibleData : [nullFlowItem];
+        this.refreshChartXLabels();
+        this.refreshChartDataDisplayOptions();
+    }
+    
+    public chartXDataLabels: string[];
+    public chartDataDisplayOptions: FlowDisplayOptions[];
+    public chartType = 'line';
 
-    public lineChartLabels:Array<any> = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
-    public lineChartOptions:any = {
+    public chartGlobalConfiguration = {
         responsive: true,
         maintainAspectRatio: false,
         legend: {
@@ -38,65 +44,55 @@ export class ChartComponent implements OnChanges {
         },
         pan: {
             enabled: true,
-            mode: 'xy',
-            speed: 1
+            mode: 'xy'
         },
         zoom: {
             enabled: true,
             drag: false,
-            mode: 'y'
+            mode: 'xy'
         }
     }
 
-    public lineChartColors:Array<any> = [
-    { // grey
-        backgroundColor: 'rgba(148,159,177,0.2)',
-        borderColor: 'rgba(148,159,177,1)',
-        pointBackgroundColor: 'rgba(148,159,177,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    },
-    { // dark grey
-        backgroundColor: 'rgba(77,83,96,0.2)',
-        borderColor: 'rgba(77,83,96,1)',
-        pointBackgroundColor: 'rgba(77,83,96,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(77,83,96,1)'
-    },
-    { // grey
-        backgroundColor: 'rgba(148,159,177,0.2)',
-        borderColor: 'rgba(148,159,177,1)',
-        pointBackgroundColor: 'rgba(148,159,177,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    }];
-
-    public lineChartLegend = true;
-    public lineChartType = 'line';
-
-    // events
-    public chartClicked(e:any):void {
-        console.log(e);
+    public ngOnChanges(changes: SimpleChanges) {
+        // Dirty hack. Reason: BaseChartDirective doesn't react on manual hidden property changes
+        if (this.baseChart.chart != null && this.displayDataInternal != null) { 
+            this.baseChart.datasets = this.displayDataInternal; // Otherwise chart will crash without any data inside
+            this.baseChart.labels = this.chartXDataLabels;
+            this.baseChart.colors = this.chartDataDisplayOptions;
+            this.baseChart.refresh();
+        }
     }
 
-    public chartHovered(e:any):void {
-        console.log(e);
+    private refreshChartXLabels() {
+        const largestDataSet = _.maxBy(this.displayData, dataItem => dataItem.data.length);
+        this.chartXDataLabels = _.keys(largestDataSet.data);
+    }
+
+    public refreshChartDataDisplayOptions() {
+        this.chartDataDisplayOptions = _.map(this.displayData, dataItem => dataItem.displayOptions);
     }
 }
 
-export class FormulaDisplayData { 
+export class FlowChartDataItem { 
     public readonly id: string;
 
     constructor(
-        public label: string,
-        public data: number[],
-        public hidden = false) {
+        public data?: number[],
+        public functionArgs = new ProcessFunctionRequestArgs(),
+        public displayOptions = new FlowDisplayOptions()) {
         
         this.id = MathUtil.newGuid();
     }
 }
 
-var nullFormula: FormulaDisplayData = new FormulaDisplayData("null", [0], true)
+export class FlowDisplayOptions {
+    public displayedName: string;
+    public backgroundColor: string;
+    public borderWidth: number;
+    public borderColor: string;
+    public pointBackgroundColor: string;
+    public pointBorderColor: string;
+    public hidden = false  
+}
+
+var nullFlowItem: FlowChartDataItem = new FlowChartDataItem([0])

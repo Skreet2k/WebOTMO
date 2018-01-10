@@ -1,0 +1,36 @@
+<div class="row-fluid">
+    <div class="row col-lg-10 offset-lg-1">
+        <div class="col-md-6 col-lg-4 pb-4">
+            <list [model]="userFlowListModel"></list>
+        </div>
+        <div class="col-md-6 col-lg-4 pb-4">
+            <list [model]="defaultFlowListModel"></list>
+        </div>
+        <div class="col-md-6 col-lg-4 pb-4">
+            <ul class="list-group bg-light rounded border">
+                <li class="list-group-item bg-secondary">Upload Flow</li>
+                <li class="list-group-item text-dark">
+                    <input type="text" class="form-control form-control-sm my-2" [(ngModel)]="flowName" placeholder="Flow name..." />
+                    <label class="custom-file my-2 w-100">
+                        <input type="file" accept="text/plain" #fileInput class="custom-file-input">
+                        <span class="custom-file-control form-control form-control-sm"></span>
+                    </label>
+                    <small class="form-text text-muted">.txt file with arrival times of packets separated by line wrapping</small>
+                    <div class="form-row my-2">
+                        <div class="col">
+                            <small>First packet index</small>
+                            <input type="number" class="form-control form-control-sm" min="0" [(ngModel)]="startPacketIndex">
+                        </div>
+                        <div class="col">
+                            <small>Last packet index</small>
+                            <input type="number" class="form-control form-control-sm" [(ngModel)]="endPacketIndex">
+                        </div>
+                    </div>
+                    <button [disabled]="!isValid || isUpdate" type="button" class="btn btn-sm btn-success my-2" (click)="upload()">Upload
+                        <i class="fa fa-spinner fa-pulse fa-fw ml-2" *ngIf="isUpdate"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

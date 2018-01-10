@@ -63,6 +63,7 @@ namespace WebApi
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IFlowService, FlowService>();
+            services.AddScoped<IFunctionService, FlowFunctions>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IIdentityService, IdentityService>();
         }

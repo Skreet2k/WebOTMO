@@ -13,6 +13,7 @@ namespace WebApi.Helpers
             CreateMap<UserDto, User>().ForMember(x=> x.Password, y=> y.MapFrom(z=> Encoding.UTF8.GetBytes(z.Password)));
             CreateMap<Flow, FlowDto>();
             CreateMap<FlowWithDataDto, Flow>();
+            CreateMap<Flow, FlowWithDataDto>();
         }
     }
 }

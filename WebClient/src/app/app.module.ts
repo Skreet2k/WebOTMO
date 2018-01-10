@@ -7,6 +7,7 @@ import { routing } from './app.routing';
 import { ChartsModule } from 'ng2-charts';
 import { ModalModule } from 'ngx-modialog';
 import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 import { AppComponent } from './app.component';
 import { AlertComponent } from './alert/alert.component';
@@ -14,22 +15,23 @@ import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
-import { FlowsComponent } from './flows/flows.component';
-import { FlowComponent } from './flows/flow.component';
+import { FlowsPageComponent } from './core/flows/flowsPage/flowsPage.component';
+import { FlowConfigPageComponent } from './core/flows/flowConfigPage/flowConfigPage.component';
 import { PromptModalDialog } from './common/dialog/prompt/promptDialog.component';
+import { ListComponent } from './common/list/list.component';
 import { ChartLayoutComponent } from './core/chart/layout/chartLayout.component';
 import { ChartSidebarComponent } from './core/chart/sidebar/chartSidebar.component';
 import { ChartComponent } from './core/chart/chart/chart.component';
 import { ChartTabsetComponent } from './core/chart/tabset/chartTabset.component';
 import { ChartCollectionProviderService } from './core/chart/chartTabCollectionProvider.service';
-import { ModifyFormulaDialog } from './core/chart/modifyFormulaDialog/modifyFormulaDialog.component';
+import { ModifyOnChartFlowDialog } from './core/chart/modifyOnChartFlowDialog/modifyOnChartFlowDialog.component';
 
 import { AuthGuard } from './guards/auth.guard';
 import { AlertService } from './services/alert.service';
 import { UserService } from './services/user.service';
-import { FlowService } from './services/flow.service';
+import { FlowService } from './core/flows/flow.service';
 import { AuthenticationService } from './services/authentication.service';
-import { FlowFunctionsService } from './services/flowFunctions.service';
+import { FlowFunctionsService } from './core/flows//flowFunctions.service';
 
 import { AppConfig } from './app.config';
 
@@ -40,50 +42,51 @@ import 'hammerjs';
 import 'chartjs-plugin-zoom';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AlertComponent,
-    LayoutComponent,
-    LoginComponent,
-    RegisterComponent,
-    HomeComponent,
-    FlowsComponent,
-    ChartLayoutComponent,
-    ChartSidebarComponent,
-    ChartComponent,
-    IterablePipe,
-    FlowsComponent,
-    FlowComponent,
-    CompileDirective,
-    ChartTabsetComponent,
-    PromptModalDialog,
-    ModifyFormulaDialog
-  ],
-  entryComponents: [
-    PromptModalDialog,
-    ModifyFormulaDialog
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    routing,
-    TabsModule.forRoot(),
-    BsDropdownModule.forRoot(),
-    ChartsModule,
-    ModalModule.forRoot(),
-    BootstrapModalModule
-  ],
-  providers: [
-    AppConfig,
-    AuthGuard,
-    AlertService,
-    AuthenticationService,
-    UserService,
-    FlowService,
-    FlowFunctionsService,
-    ChartCollectionProviderService
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        AlertComponent,
+        LayoutComponent,
+        LoginComponent,
+        RegisterComponent,
+        HomeComponent,
+        FlowConfigPageComponent,
+        ChartLayoutComponent,
+        ChartSidebarComponent,
+        ChartComponent,
+        IterablePipe,
+        FlowsPageComponent,
+        CompileDirective,
+        ChartTabsetComponent,
+        PromptModalDialog,
+        ModifyOnChartFlowDialog,
+        ListComponent
+    ],
+    entryComponents: [
+        PromptModalDialog,
+        ModifyOnChartFlowDialog
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        routing,
+        TabsModule.forRoot(),
+        BsDropdownModule.forRoot(),
+        ChartsModule,
+        ModalModule.forRoot(),
+        BootstrapModalModule,
+        ColorPickerModule
+    ],
+    providers: [
+        AppConfig,
+        AuthGuard,
+        AlertService,
+        AuthenticationService,
+        UserService,
+        FlowService,
+        FlowFunctionsService,
+        ChartCollectionProviderService,
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

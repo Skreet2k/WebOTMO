@@ -56,11 +56,14 @@ chart-tabset {
                 > .nav-link {
                     padding-right: $iconWidth;
                 }
-                .glyphicon {
+                .close {
                     float: right;
                     width: $iconWidth;
                     position: absolute;
                     right: 8px;
+                    font-size: 16px;
+                    padding-top: 4px;
+                    outline: none;
                 }
             }
         }

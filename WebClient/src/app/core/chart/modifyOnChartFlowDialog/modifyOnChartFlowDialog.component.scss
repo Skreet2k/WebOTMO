@@ -1,0 +1,49 @@
+modify-on-chart-flow-dialog {
+    > .modal-container {
+        position: absolute;
+        width: 100%;
+
+        > .modal-body {
+            height: 600px;
+            width: 100%;
+            padding: 0;
+
+            > .body-container {
+                height: 100%;
+                padding: $commonElementOffset;
+                display: inline-block;
+                vertical-align: middle;
+                width: calc((100% / 3) - #{$commonElementOffset / 2});
+
+                > .body-container-head {
+                    padding-bottom: $commonElementOffset;
+                    font-size: 19px;
+                    font-weight: 500;
+                    line-height: 19px;
+                    font-family: inherit;
+                }
+
+                > .body-container-row {
+                    height: 47.5%;
+                    padding-bottom: 2 * $commonElementOffset;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    modify-on-chart-flow-dialog {
+        .modal-body {
+            height: 100% !important;
+
+            > .body-container {
+                width: 100% !important;
+
+                &:not(:last-child) {
+                    margin-bottom: $commonElementOffset;
+                }
+            }
+        }
+    }
+}

@@ -1,18 +1,19 @@
-import { Component, OnDestroy, OnInit} from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import { MathUtil } from "../../../common/MathUtil";
 import * as _ from "lodash";
 import { Subscription } from "rxjs";
 import { Modal, overlayConfigFactory } from "ngx-modialog";
-import { FormulaDisplayData } from "../chart/chart.component";
+import { FlowChartDataItem } from "../chart/chart.component";
 import { ChartCollectionProviderService, Tab } from "../chartTabCollectionProvider.service";
 import { PromptDialogContext, PromptModalDialog } from "../../../common/dialog/prompt/promptDialog.component";
+import { TabsetComponent } from "ngx-bootstrap";
 
 @Component({
     selector: "chart-tabset",
     templateUrl: "./chartTabset.component.html"
 })
 export class ChartTabsetComponent implements OnInit, OnDestroy {
-    public displayData: FormulaDisplayData[]
+    public displayData: FlowChartDataItem[]
 
     public activeTabContentChangedSubscription: Subscription;
 
@@ -43,7 +44,7 @@ export class ChartTabsetComponent implements OnInit, OnDestroy {
         this.chartTabCollectionProviderService.setActiveTab(tab.id);
     }
 
-    public onTabRemoved(tab: Tab) {
+    public removeTab(tab: Tab) {
         this.chartTabCollectionProviderService.removeTab(tab);
     }
 

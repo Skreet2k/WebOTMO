@@ -1,0 +1,16 @@
+<div class="list-group bg-light rounded border">
+    <span class="list-group-item bg-secondary">{{model.title}}</span>
+    <div class="loader" *ngIf="model.loading; else contentLoaded">
+        <i class="fa fa-spinner fa-pulse fa-fw fa-4x"></i>
+    </div>
+    <ng-template #contentLoaded> 
+        <span class="text-dark no-data" *ngIf="model.items.length == 0">
+            There is no any item loaded
+        </span>
+        <div class="list-group">
+            <span class="list-group-item list-group-item-action text-dark" [ngClass]="{active: item.active}" *ngFor="let item of model.items" (click)="onItemClicked(item)" [title]="item.description">
+                {{item.name}}
+            </span>
+        </div>
+    </ng-template>
+</div>

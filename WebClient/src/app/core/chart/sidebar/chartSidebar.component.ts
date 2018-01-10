@@ -2,7 +2,10 @@ import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
 import { ChartCollectionProviderService, Tab } from "../chartTabCollectionProvider.service";
 import { BSModalContext } from "ngx-modialog/plugins/bootstrap";
 import { Modal, overlayConfigFactory } from "ngx-modialog";
-import { ModifyFormulaDialog } from "../modifyFormulaDialog/modifyFormulaDialog.component";
+import { ModifyOnChartFlowDialog } from "../modifyOnChartFlowDialog/modifyOnChartFlowDialog.component";
+import { ModifyFlowDialogContext } from "../modifyOnChartFlowDialog/modifyOnChartFlowDialog.component"
+import { FlowFunctionsService } from "../../flows/flowFunctions.service";
+import { FlowChartDataItem } from "../chart/chart.component";
 import * as _ from "lodash";
 
 @Component({
@@ -12,54 +15,75 @@ import * as _ from "lodash";
 export class ChartSidebarComponent implements OnChanges {  
     @Input() activeTab: Tab;
 
-    public buttons: FormulaButton[];
+    public buttons: OnChartFlowButton[];
 
     constructor(
-        private readonly chartTabCollectionProviderService: ChartCollectionProviderService,
+        private readonly chartCollectionProviderService: ChartCollectionProviderService,
+        private readonly flowFunctionsService: FlowFunctionsService,
         private readonly modal: Modal) {
     }
 
     public ngOnChanges(changes: SimpleChanges) {
         if (changes["activeTab"] != null) {
-            this.buttons = [];
-            if (this.activeTab != null) {
-                _.forEach(this.activeTab.data, (dataEntry) => {
-                    this.buttons.push({ title: dataEntry.label, id: dataEntry.id });
-                });
-            }
+            this.refreshDisplayedData();
         }
     }
 
-    public toggleFormulaVisibility(entry: FormulaButton) {
-        const formulaToChange = _.find(this.activeTab.data, dataEntry => dataEntry.id === entry.id);
-        if (formulaToChange != null) {
-            formulaToChange.hidden = !formulaToChange.hidden;
-            this.chartTabCollectionProviderService.notifyActiveTabContentChanged();
+    public toggleFlowVisibility(entry: OnChartFlowButton) {
+        const flow = _.find(this.activeTab.data, dataEntry => dataEntry.id === entry.id);
+        if (flow != null) {
+            flow.displayOptions.hidden = !flow.displayOptions.hidden;
+            this.chartCollectionProviderService.notifyActiveTabContentChanged();
         }
     }
 
-    public removeFormula(entry: FormulaButton) {
+    public removeFlow(entry: OnChartFlowButton) {
         _.remove(this.buttons, button => button.id === entry.id);
-        this.chartTabCollectionProviderService.removeActiveFormula(entry.id);
+        this.chartCollectionProviderService.removeFlow(entry.id);
     }
 
-    public editFormula(entry: FormulaButton) {
+    public editFlow(entry: OnChartFlowButton) {
+        let flow = _.find(this.activeTab.data, dataEntry => dataEntry.id === entry.id);
+        this.openModifyFlowDialog("Modify flow on chart", flow)
+            .then(resultFlow => {
+                this.flowFunctionsService.processFunction(resultFlow.functionArgs)
+                    .then((resultData) => {
+                        flow = resultFlow;
+                        flow.data = resultData;
+                        this.chartCollectionProviderService.notifyActiveTabContentChanged();
+                        this.refreshDisplayedData();
+                    })
+                }, () => {});
     }
 
-    public addFormula() {
-        const dialog = this.modal.open(ModifyFormulaDialog, overlayConfigFactory({}, BSModalContext));
+    public addFlow() {
+        this.openModifyFlowDialog("Add flow to chart")
+            .then(resultFlow => {
+                this.flowFunctionsService.processFunction(resultFlow.functionArgs)
+                    .then((resultData) => {
+                        resultFlow.data = resultData;
+                        this.chartCollectionProviderService.addFlow(resultFlow);
+                        this.refreshDisplayedData();
+                    })
+                }, () => {});
+    }
 
-        dialog.result.then(resultPromise => {
-            return resultPromise.result
-              .then(
-                 result => console.log('confirm', result),
-                 () => console.log('decline', 'result')
-              );
-          });
+    private openModifyFlowDialog(title: string, dataItem?: FlowChartDataItem): Promise<FlowChartDataItem> {
+        return this.modal.open(ModifyOnChartFlowDialog, overlayConfigFactory( 
+            new ModifyFlowDialogContext(title, dataItem), ModifyFlowDialogContext)).result;
+    }
+
+    private refreshDisplayedData() {
+        this.buttons = [];
+        if (this.activeTab != null) {
+            _.forEach(this.activeTab.data, (dataEntry) => {
+                this.buttons.push({ title: dataEntry.displayOptions.displayedName, id: dataEntry.id });
+            });
+        }
     }
 }
 
-export type FormulaButton = {
+export type OnChartFlowButton = {
     title: string,
     id: string
 }

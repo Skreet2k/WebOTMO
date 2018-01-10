@@ -1,11 +1,16 @@
 .modal {
     &.fade.in {
-        // Seems like ngx-modialog bug is injected. Need to investigate why dialog layout breaks with flex style rules
+        // Seems like ngx-modialog bug was injected. Need to investigate why dialog layout breaks with flex style rules
         opacity: 1; 
     }
 
-    .modal-header {
+    .modal-header,
+    .modal-footer {
         display: block;
+    }
+
+    .modal-footer {
+        text-align: right;
     }
 
     .modal-container {
@@ -17,10 +22,18 @@
     }
 
     .modal-hg {
-        max-width: 900px;
+        width: 900px;
+        max-width: 900px
     }
 }
 
 .modal-backdrop.fade.in {
     opacity: 0.3;
+}
+
+@media (max-width: 900px) {
+    .modal-hg {
+        width: 100% !important;
+        margin: 0;
+    }
 }

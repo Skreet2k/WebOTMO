@@ -9,8 +9,8 @@ import { NgForm } from "@angular/forms";
 })
 export class PromptModalDialog implements ModalComponent<BSModalContext> {
     @ViewChild("form") public form: NgForm;
+    public readonly context: PromptDialogContext;
     public promptText: string;
-    private readonly context: PromptDialogContext;
 
     constructor(public dialog: DialogRef<PromptDialogContext>) {
         this.context = dialog.context;
