@@ -8,7 +8,7 @@
             There is no any item loaded
         </span>
         <div class="list-group">
-            <span class="list-group-item list-group-item-action text-dark" [ngClass]="{active: item.active}" *ngFor="let item of model.items" (click)="onItemClicked(item)" [title]="item.description">
+            <span class="list-group-item text-dark" *ngFor="let item of model.items" [ngClass]="getItemCssClasses(item)" (click)="onItemClicked(item)" [title]="item.description">
                 {{item.name}}
             </span>
         </div>

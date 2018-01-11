@@ -125,6 +125,7 @@ export class ChartCollectionProviderService implements OnDestroy {
         for (let i = 0; i < 3; i++) {
             const dataItem = new FlowChartDataItem(_.map([5, 10, 20, 30, 40, 50, 60, 70, 50, 10], val => _.random(0, val)));
             dataItem.displayOptions.displayedName = "Series " + _.random(0, 100);
+            dataItem.displayOptions.xAxesStep = 1;
             data.push(dataItem);
         }
         return data;

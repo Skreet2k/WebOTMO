@@ -10,7 +10,6 @@ export class FlowConfigPageComponent implements OnInit {
     
     public flow: Flow = new Flow();
     public isLoading: boolean = false;
-    public isUpdate: boolean = false;
   
     constructor (
         private readonly route: ActivatedRoute,
@@ -29,7 +28,7 @@ export class FlowConfigPageComponent implements OnInit {
     }
 
     public update() {
-        this.isUpdate = true;
+        this.isLoading = true;
         const fileBrowser = this.fileInput.nativeElement;
         const file = fileBrowser.files[0];
         if (file != null) {
@@ -42,14 +41,22 @@ export class FlowConfigPageComponent implements OnInit {
                         this.redirectToFlowsPage()
                     );
                 }
-                this.isUpdate = false;        
+                this.isLoading = false;        
             };
             reader.readAsText(file);
             return;
         }
         this.flowService.update(this.flow).then(() => { 
             this.redirectToFlowsPage(); 
-            this.isUpdate = false
+            this.isLoading = false
+        });
+    }
+
+    public remove() {
+        this.isLoading = true;
+        this.flowService.remove(this.flow).then(() => { 
+            this.redirectToFlowsPage(); 
+            this.isLoading = false
         });
     }
 

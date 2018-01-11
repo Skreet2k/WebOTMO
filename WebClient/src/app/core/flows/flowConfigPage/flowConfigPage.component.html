@@ -11,7 +11,8 @@
                 <span class="custom-file-control form-control form-control-sm"></span>
             </label>
             <small class="form-text text-muted">.txt file with arrival times of packets separated by line wrapping</small>
-            <button [disabled]="isUpdate" class="btn btn-sm btn-success my-2" (click)="update()">Update<i class="fa fa-spinner fa-pulse fa-fw ml-2" *ngIf="isUpdate"></i></button>
+            <button class="btn btn-sm btn-success my-2" (click)="update()">Update<i class="fa fa-spinner fa-pulse fa-fw ml-2" *ngIf="isUpdate"></i></button>
+            <button class="btn btn-sm btn-danger my-2" (click)="remove()">Remove<i class="fa fa-spinner fa-pulse fa-fw ml-2" *ngIf="isUpdate"></i></button>
             <button class="btn btn-sm btn-secondary" (click)="this.redirectToFlowsPage()">Cancel</button>
         </ng-template>
     </div>

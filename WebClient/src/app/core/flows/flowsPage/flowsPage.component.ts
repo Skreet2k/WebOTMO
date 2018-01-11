@@ -26,16 +26,12 @@ export class FlowsPageComponent implements OnInit {
 
     public ngOnInit() {
         this.userFlowListModel = new ListModel('Your Flows', [], true);
-        this.defaultFlowListModel = new ListModel('Default Flows', [], true);
-
+        this.defaultFlowListModel = new ListModel('Default Flows', [], true, false, false);
         this.flowService.getAll().then(flows => {
             _.forEach(flows, flow => {
-                const listItem = { 
-                    name: flow.name,
-                    description: "",
-                    onClickAction: () => this.openFlowContentPage(flow) 
-                };
+                const listItem = new ListItem(flow.name, "")
                 if (flow.userId != null) {
+                    listItem.onClickAction = () => this.openFlowContentPage(flow)
                     this.userFlowListModel.items.push(listItem);
                 } else {
                     this.defaultFlowListModel.items.push(listItem);
