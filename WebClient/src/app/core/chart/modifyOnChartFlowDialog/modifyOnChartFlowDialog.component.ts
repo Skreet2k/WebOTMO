@@ -17,6 +17,8 @@ export class ModifyOnChartFlowDialog implements OnInit, OnDestroy, ModalComponen
     public readonly model: ModifyFlowDialogModel;
 
     public dialogTitle: string;
+    public actualChartXAxesStep: number;
+
     public defaultFlowListModel: ListModel;
     public userFlowListModel: ListModel;
     public functionListModel: ListModel;
@@ -40,6 +42,7 @@ export class ModifyOnChartFlowDialog implements OnInit, OnDestroy, ModalComponen
 
         this.model = dialog.context.dialogModel;
         this.dialogTitle = dialog.context.title;
+        this.actualChartXAxesStep = dialog.context.actualChartXAxesStep;
         dialog.context.dialogClass = "modal-dialog modal-hg";
     }
 
@@ -78,7 +81,8 @@ export class ModifyOnChartFlowDialog implements OnInit, OnDestroy, ModalComponen
                         });
                         this.model.flowId = flow.id;
                     },
-                    active: flow.id === this.model.flowId
+                    active: flow.id === this.model.flowId,
+                    disabled: false
                 };
                 if (flow.userId != null) {
                     this.userFlowListModel.items.push(listItem);
@@ -95,16 +99,19 @@ export class ModifyOnChartFlowDialog implements OnInit, OnDestroy, ModalComponen
         this.functionListModel = new ListModel("Functions", [], true, true);
         this.flowFunctionsService.getAll().then(functionDisplayItem => {
             _.forEach(functionDisplayItem, item => {
+                const disabled = this.actualChartXAxesStep != null && this.actualChartXAxesStep != item.deltaX;
                 this.functionListModel.items.push({ 
                     name: item.name,
-                    description: item.description,
+                    description: (disabled ? "You cannot use this function since there is at least one function with another abscissa data step interval on current chart. " : "") 
+                        + item.description,
                     onClickAction: () => {
                         this.displayLoadFactorInput = item.isNeedMaxLoadFactor;
                         this.model.loadFactor = this.displayLoadFactorInput ? DefaultFunctionOptions.loadFactor : "";
                         this.model.xAxesStep = item.deltaX;
                         this.model.functionId = item.id;
                     },
-                    active: item.id === this.model.functionId
+                    active: item.id === this.model.functionId,
+                    disabled: disabled
                 })
             });
             this.functionListModel.loading = false;
@@ -132,6 +139,7 @@ export class ModifyFlowDialogContext extends BSModalContext {
 
     constructor(
         public title: string,
+        public actualChartXAxesStep?: number,
         chartDataItem: FlowChartDataItem = new FlowChartDataItem()) {
         
         super();

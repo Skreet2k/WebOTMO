@@ -12,6 +12,9 @@ list {
             max-height: calc(100% - #{$itemHeight - 1px});
 
             .list-group-item {
+                text-align: inherit;
+                outline: none;
+
                 &.active {
                     background-color: rgb(199, 199, 199);
                     border-color: rgb(145, 145, 145);

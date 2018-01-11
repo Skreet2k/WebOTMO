@@ -12,7 +12,7 @@ export class ListComponent {
     }
 
     public onItemClicked(item: ListItem) {
-        if (this.model.clickable) {
+        if (this.model.clickable && !item.disabled) {
             item.onClickAction();
             if (this.model.selectable) {
                 _.forEach(this.model.items, item => {
@@ -24,6 +24,9 @@ export class ListComponent {
     }
 
     public getItemCssClasses(item: ListItem) {
+        if (item.disabled) {
+            return "disabled";
+        }
         return (this.model.clickable ? "list-group-item-action " : "") 
             + (item.active ? "active" : "");
     }
@@ -46,6 +49,7 @@ export class ListItem {
         public description?: string, 
         public onClickAction?: Function,
         public active = false,
+        public disabled = false
     ) {
     }
 }

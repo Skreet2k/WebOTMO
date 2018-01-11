@@ -7,10 +7,10 @@
         <span class="text-dark no-data" *ngIf="model.items.length == 0">
             There is no any item loaded
         </span>
-        <div class="list-group">
-            <span class="list-group-item text-dark" *ngFor="let item of model.items" [ngClass]="getItemCssClasses(item)" (click)="onItemClicked(item)" [title]="item.description">
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let item of model.items" [ngClass]="getItemCssClasses(item)" (click)="onItemClicked(item)" [title]="item.description">
                 {{item.name}}
-            </span>
-        </div>
+            </li>
+        </ul>
     </ng-template>
 </div>
