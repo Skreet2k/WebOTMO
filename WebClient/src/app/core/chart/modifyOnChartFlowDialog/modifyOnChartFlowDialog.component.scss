@@ -33,11 +33,17 @@ modify-on-chart-flow-dialog {
                 }
 
                 > .body-container-row {
-                    height: 47.5%;
                     padding-bottom: 2 * $commonElementOffset;
                 }
             }
         }
+    }
+    .color-picker-block {
+        border-radius: 0.2rem;
+        height: 70%;
+        cursor: pointer;
+        border: 1px solid #e9ecef;
+        margin: 0.5rem 0;
     }
 }
 
