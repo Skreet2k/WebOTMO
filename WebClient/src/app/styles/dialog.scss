@@ -3,7 +3,14 @@
         // Seems like ngx-modialog bug was injected. Need to investigate why dialog layout breaks with flex style rules
         opacity: 1; 
     }
-
+    .modal-header {
+        padding: 5px;
+        
+        .close {
+            padding: 8px;
+            margin: -5px 0px -5px auto;
+        }
+    }
     .modal-header,
     .modal-footer {
         display: block;

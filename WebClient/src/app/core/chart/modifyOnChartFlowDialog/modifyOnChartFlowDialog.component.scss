@@ -3,6 +3,15 @@ modify-on-chart-flow-dialog {
         position: absolute;
         width: 100%;
 
+        > .modal-header {
+            padding: 5px;
+            
+            > .close {
+                padding: 8px;
+                margin: -5px 0px -5px auto;
+            }
+        }
+
         > .modal-body {
             height: 600px;
             width: 100%;

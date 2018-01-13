@@ -3,7 +3,7 @@
         <button class="close text-white" (click)="close()" type="button">
             <span aria-hidden="true">×</span>
         </button>
-        <h4>{{dialogTitle}}</h4>
+        <h5 class="px-3 pt-1">{{dialogTitle}}</h5>
     </div>
     <div class="modal-body bg-white">
         <div class="body-container bg-light rounded">
@@ -12,17 +12,17 @@
             </div>
             <div class="body-container-row">
                 <span class="text-sm">Flow name</span>
-                <input type="text" class="form-control" name="displayedName" id="displayedName" [(ngModel)]="model.displayedName" required/>
+                <input type="text" class="form-control form-control-sm mb-3" name="displayedName" id="displayedName" [(ngModel)]="model.displayedName" required/>
                 <span class="text-sm">Border width</span>
-                <input type="number" min="1" max="100" class="form-control" name="borderWidth" id="borderWidth" [(ngModel)]="model.borderWidth"/>
+                <input type="number" min="1" max="100" class="form-control form-control-sm mb-3" name="borderWidth" id="borderWidth" [(ngModel)]="model.borderWidth"/>
                 <span class="text-sm">Background color</span>
-                <input type="text" [value]="model.backgroundColor" [cpOutputFormat]="'rgba'" [cpPosition]="colorPickerDialogPosition" [style.background]="model.backgroundColor" [(colorPicker)]="model.backgroundColor" class="form-control" name="backgroundColor" id="backgroundColor"/>
+                <input type="text" [value]="model.backgroundColor" [cpOutputFormat]="'rgba'" [cpPosition]="colorPickerDialogPosition" [style.background]="model.backgroundColor" [(colorPicker)]="model.backgroundColor" class="form-control form-control-sm mb-3" name="backgroundColor" id="backgroundColor"/>
                 <span class="text-sm">Border color</span>
-                <input type="text" [value]="model.borderColor" [cpOutputFormat]="'rgba'" [cpPosition]="colorPickerDialogPosition" [style.background]="model.borderColor" [(colorPicker)]="model.borderColor" class="form-control" name="borderColor" id="borderColor"/>
+                <input type="text" [value]="model.borderColor" [cpOutputFormat]="'rgba'" [cpPosition]="colorPickerDialogPosition" [style.background]="model.borderColor" [(colorPicker)]="model.borderColor" class="form-control form-control-sm mb-3" name="borderColor" id="borderColor"/>
                 <span class="text-sm">Point background color</span>
-                <input type="text" [value]="model.pointBackgroundColor" [cpOutputFormat]="'rgba'" [cpPosition]="colorPickerDialogPosition" [style.background]="model.pointBackgroundColor" [(colorPicker)]="model.pointBackgroundColor" class="form-control" name="pointBackgroundColor" id="pointBackgroundColor"/>
+                <input type="text" [value]="model.pointBackgroundColor" [cpOutputFormat]="'rgba'" [cpPosition]="colorPickerDialogPosition" [style.background]="model.pointBackgroundColor" [(colorPicker)]="model.pointBackgroundColor" class="form-control form-control-sm mb-3" name="pointBackgroundColor" id="pointBackgroundColor"/>
                 <span class="text-sm">Point border color</span>
-                <input type="text" [value]="model.pointBorderColor" [cpOutputFormat]="'rgba'" [cpPosition]="colorPickerDialogPosition" [style.background]="model.pointBorderColor" [(colorPicker)]="model.pointBorderColor" class="form-control" name="pointBorderColor" id="pointBorderColor"/>
+                <input type="text" [value]="model.pointBorderColor" [cpOutputFormat]="'rgba'" [cpPosition]="colorPickerDialogPosition" [style.background]="model.pointBorderColor" [(colorPicker)]="model.pointBorderColor" class="form-control form-control-sm" name="pointBorderColor" id="pointBorderColor"/>
             </div>
         </div>
         <div class="body-container rounded">
@@ -45,14 +45,14 @@
             </div>
             <div class="body-container-row">
                 <span class="text-sm">Load factor</span>
-                <input type="number" min="0.1" max="1" step="0.1" class="form-control" name="loadFactor" id="loadFactor" [(ngModel)]="model.loadFactor"/>
+                <input type="number" min="0.1" max="1" step="0.1" class="form-control form-control-sm mb-3" name="loadFactor" id="loadFactor" [(ngModel)]="model.loadFactor"/>
                 <span class="text-sm">Number of service units</span>
-                <input type="number" min="1" max="10" class="form-control" name="numberOfServiceUnits" id="numberOfServiceUnits" [(ngModel)]="model.numberOfServiceUnits"/>
+                <input type="number" min="1" max="10" class="form-control form-control-sm" name="numberOfServiceUnits" id="numberOfServiceUnits" [(ngModel)]="model.numberOfServiceUnits"/>
             </div>
         </div>
     </div>
-    <div class="modal-footer bg-info">
-        <button type="button" class="btn btn-info add-formula-button" (click)="close()">Cancel</button>
-        <button type="button" type="submit" class="btn btn-info add-formula-button" [disabled]="!isValid">Ok</button>
+    <div class="modal-footer bg-light">
+        <button type="button" class="btn btn-sm btn-light add-formula-button" (click)="close()">Cancel</button>
+        <button type="button" type="submit" class="btn btn-sm btn-info add-formula-button" [disabled]="!isValid">Ok</button>
     </div>
 </form>
