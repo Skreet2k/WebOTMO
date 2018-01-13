@@ -23,6 +23,15 @@ list {
                 &.list-group-item-action {
                     cursor: pointer;
                 }
+
+                &.common-item {
+                    border-radius: 0;
+                    color: rgb(73, 80, 87);
+                }
+
+                &.disabled {
+                    color: rgb(134, 142, 150)
+                }
             }
         }
 

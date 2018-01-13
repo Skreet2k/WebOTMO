@@ -21,7 +21,7 @@ modify-on-chart-flow-dialog {
                 height: 100%;
                 padding: $commonElementOffset;
                 display: inline-block;
-                vertical-align: middle;
+                vertical-align: top;
                 width: calc((100% / 3) - #{$commonElementOffset / 2});
 
                 > .body-container-head {

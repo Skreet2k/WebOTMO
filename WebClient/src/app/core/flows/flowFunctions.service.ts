@@ -38,4 +38,5 @@ export class ProcessFunctionRequestArgs {
     public flowId: number;
     public numberOfServiceUnits?: number;
     public loadFactor?: number;
+    public maxLoadFactor?: number;
 }

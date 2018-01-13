@@ -32,7 +32,7 @@ export class ModifyOnChartFlowDialog implements OnInit, OnDestroy, ModalComponen
     }
     private unsubscribeFromWindowResizeEvent: Function;
 
-    public displayLoadFactorInput: boolean = true;
+    public displayMaxLoadFactorInput: boolean;
 
     constructor(
         private readonly flowService: FlowService,
@@ -50,7 +50,7 @@ export class ModifyOnChartFlowDialog implements OnInit, OnDestroy, ModalComponen
         this.loadFlows();
         this.loadFunctions();
 
-        this.displayLoadFactorInput = !!this.model.loadFactor;
+        this.displayMaxLoadFactorInput = !!this.model.maxLoadFactor;
         this.unsubscribeFromWindowResizeEvent = window.onresize = (e) => {
             this.ngZone.run(() => {
                 this.refreshColorPickerDialogPosition();
@@ -105,8 +105,14 @@ export class ModifyOnChartFlowDialog implements OnInit, OnDestroy, ModalComponen
                     description: (disabled ? "You cannot use this function since there is at least one function with another abscissa data step interval on current chart. " : "") 
                         + item.description,
                     onClickAction: () => {
-                        this.displayLoadFactorInput = item.isNeedMaxLoadFactor;
-                        this.model.loadFactor = this.displayLoadFactorInput ? DefaultFunctionOptions.loadFactor : "";
+                        this.displayMaxLoadFactorInput = item.isNeedMaxLoadFactor;
+                        if (this.displayMaxLoadFactorInput) {
+                            this.model.loadFactor = "";
+                            this.model.maxLoadFactor = DefaultFunctionOptions.maxLoadFactor;
+                        } else {
+                            this.model.loadFactor = DefaultFunctionOptions.loadFactor;
+                            this.model.maxLoadFactor = "";
+                        }
                         this.model.xAxesStep = item.deltaX;
                         this.model.functionId = item.id;
                     },
@@ -132,6 +138,10 @@ export class ModifyOnChartFlowDialog implements OnInit, OnDestroy, ModalComponen
     public get isValid(): boolean {
         return this.model.isValid && this.form.valid;
     }
+
+    public get areFunctionOptionsDisplayed() {
+        return this.model.functionId != null;
+    }
 }
 
 export class ModifyFlowDialogContext extends BSModalContext {
@@ -153,6 +163,7 @@ export class ModifyFlowDialogModel {
     public flowId: number;
     public numberOfServiceUnits: string;
     public loadFactor: string;
+    public maxLoadFactor: string;
     public backgroundColor: string;
     public borderWidth: string;
     public borderColor: string;
@@ -171,6 +182,7 @@ export class ModifyFlowDialogModel {
         this.flowId = chartDataItem.functionArgs.flowId;
         this.numberOfServiceUnits = chartDataItem.functionArgs.numberOfServiceUnits ? String(chartDataItem.functionArgs.numberOfServiceUnits) : DefaultFunctionOptions.numberOfServiceUnits;
         this.loadFactor = chartDataItem.functionArgs.loadFactor != null ? String(chartDataItem.functionArgs.loadFactor) : "";
+        this.maxLoadFactor = chartDataItem.functionArgs.maxLoadFactor != null ? String(chartDataItem.functionArgs.maxLoadFactor) : "";
         this.displayedName = chartDataItem.displayOptions.displayedName || DefaultFlowDisplayOptions.displayedName;
         this.backgroundColor = chartDataItem.displayOptions.backgroundColor || DefaultFlowDisplayOptions.backgroundColor;
         this.borderWidth = chartDataItem.displayOptions.borderWidth != null ? String(chartDataItem.displayOptions.borderWidth) : DefaultFlowDisplayOptions.borderWidth;
@@ -184,7 +196,8 @@ export class ModifyFlowDialogModel {
         const functionArgs = new ProcessFunctionRequestArgs();
         functionArgs.id = Number(this.functionId);
         functionArgs.flowId = Number(this.flowId);
-        functionArgs.loadFactor = _.isNumber(this.loadFactor) ? Number(this.loadFactor): null;
+        functionArgs.loadFactor = !_.isEmpty(this.loadFactor) ? Number(this.loadFactor): null;
+        functionArgs.maxLoadFactor = !_.isEmpty(this.maxLoadFactor) ? Number(this.maxLoadFactor): null;
         functionArgs.numberOfServiceUnits = Number(this.numberOfServiceUnits);
 
         const displayOptions = new FlowDisplayOptions();
@@ -244,5 +257,6 @@ export enum DefaultFlowDisplayOptions {
 
 export enum DefaultFunctionOptions {
     loadFactor = "0.1",
+    maxLoadFactor = "1",
     numberOfServiceUnits = "1"
 }

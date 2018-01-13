@@ -6,7 +6,7 @@
         <h5 class="px-3 pt-1">{{dialogTitle}}</h5>
     </div>
     <div class="modal-body bg-white">
-        <div class="body-container bg-light rounded">
+        <div class="body-container rounded">
             <div class="body-container-head">
                 <span>Display options</span>
             </div>
@@ -36,18 +36,22 @@
                 <list [model]="defaultFlowListModel"></list>
             </div>
         </div>
-        <div class="body-container bg-light rounded">
+        <div class="body-container rounded">
             <div class="body-container-head">
                 <span>Available formulas</span>
             </div>
             <div class="body-container-row h-70">
                 <list [model]="functionListModel"></list>
             </div>
-            <div class="body-container-row">
-                <div *ngIf="displayLoadFactorInput">
+            <div *ngIf="areFunctionOptionsDisplayed" class="body-container-row">
+                <div *ngIf="displayMaxLoadFactorInput; else displayLoadFactorInput">
+                    <span class="text-sm">Max load factor</span>
+                    <input type="number" min="0.1" max="1" step="0.1" class="form-control form-control-sm mb-3" name="maxLoadFactor" id="maxLoadFactor" [(ngModel)]="model.maxLoadFactor"/>
+                </div>
+                <ng-template #displayLoadFactorInput>
                     <span class="text-sm">Load factor</span>
                     <input type="number" min="0.1" max="1" step="0.1" class="form-control form-control-sm mb-3" name="loadFactor" id="loadFactor" [(ngModel)]="model.loadFactor"/>
-                </div>
+                </ng-template>
                 <span class="text-sm">Number of service units</span>
                 <input type="number" min="1" max="10" class="form-control form-control-sm" name="numberOfServiceUnits" id="numberOfServiceUnits" [(ngModel)]="model.numberOfServiceUnits"/>
             </div>
