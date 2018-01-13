@@ -14,6 +14,7 @@ namespace WebApi.Services {
         FlowWithDataDto GetFlowWithData (long id);
         Task<FlowDto> Upload (FlowWithDataDto flowDto);
         Task<FlowDto> Update (FlowWithDataDto flowDto);
+        void Delete(long id);
     }
 
     public class FlowService : IFlowService {
@@ -61,6 +62,12 @@ namespace WebApi.Services {
             await _context.SaveChangesAsync ();
 
             return _mapper.Map<FlowDto> (flow);
+        }
+
+        public async void Delete(long id) {
+            var flow = _context.Flows.Find (id);
+            _context.Flows.Remove (flow);
+            await _context.SaveChangesAsync ();
         }
     }
 }

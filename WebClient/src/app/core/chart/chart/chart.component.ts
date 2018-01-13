@@ -18,6 +18,12 @@ export class ChartComponent implements OnChanges {
     @Input()
     public set displayData(data: FlowChartDataItem[]) {
         const visibleData = _.filter(data, dataItem => !dataItem.displayOptions.hidden);
+        this.decimateFactor = 1;
+        _.forEach(visibleData, dataItem => {
+            if (dataItem.data.length > this.maxPointsToDisplay) {
+                this.decimateData(dataItem);
+            }
+        })
         this.displayDataInternal = !_.isEmpty(visibleData) ? visibleData : [nullFlowItem];
         this.refreshChartXLabels();
         this.refreshChartDataDisplayOptions();
@@ -26,8 +32,11 @@ export class ChartComponent implements OnChanges {
     public chartXDataLabels: string[];
     public chartDataDisplayOptions: FlowDisplayOptions[];
     public chartType = 'line';
+    private maxPointsToDisplay = 100;
+    private decimateFactor;
 
     public chartGlobalConfiguration = {
+        animation : false,
         responsive: true,
         maintainAspectRatio: false,
         legend: {
@@ -65,11 +74,23 @@ export class ChartComponent implements OnChanges {
 
     private refreshChartXLabels() {
         const largestDataSet = _.maxBy(this.displayData, dataItem => dataItem.data.length);
-        this.chartXDataLabels = _.keys(largestDataSet.data);
+        this.chartXDataLabels = _.map(_.keys(largestDataSet.data), yData => {
+            const value = Number(yData) * largestDataSet.displayOptions.xAxesStep * this.decimateFactor;
+            return largestDataSet.displayOptions.xAxesStep < 1 ? value.toFixed(2) : value.toString();
+        });
     }
 
     public refreshChartDataDisplayOptions() {
         this.chartDataDisplayOptions = _.map(this.displayData, dataItem => dataItem.displayOptions);
+    }
+
+    private decimateData(dataItem: FlowChartDataItem) {
+        const chunks: number[][] = [];
+        this.decimateFactor = _.ceil(dataItem.data.length / this.maxPointsToDisplay);
+        while (dataItem.data.length > 0) {
+            chunks.push(dataItem.data.splice(0, this.decimateFactor));
+        }
+        dataItem.data = _.map(chunks, chunk => _.mean(chunk));
     }
 }
 
@@ -92,7 +113,8 @@ export class FlowDisplayOptions {
     public borderColor: string;
     public pointBackgroundColor: string;
     public pointBorderColor: string;
-    public hidden = false  
+    public xAxesStep: number;
+    public hidden = false;
 }
 
 var nullFlowItem: FlowChartDataItem = new FlowChartDataItem([0])

@@ -12,13 +12,23 @@ export class ListComponent {
     }
 
     public onItemClicked(item: ListItem) {
-        if (this.model.selectable) {
-            _.forEach(this.model.items, item => {
-                item.active = false
-            });
-            item.active = true;
+        if (this.model.clickable && !item.disabled) {
+            item.onClickAction();
+            if (this.model.selectable) {
+                _.forEach(this.model.items, item => {
+                    item.active = false
+                });
+                item.active = true;
+            }
         }
-        item.onClickAction();
+    }
+
+    public getItemCssClasses(item: ListItem) {
+        if (item.disabled) {
+            return "disabled";
+        }
+        return (this.model.clickable ? "list-group-item-action " : "") 
+            + (item.active ? "active" : "");
     }
 }
 
@@ -28,13 +38,18 @@ export class ListModel {
         public items: ListItem[],
         public loading = false,
         public selectable = false,
+        public clickable = true,
     ) {
     }
 }
 
-export interface ListItem {
-    name: string,
-    description?: string, 
-    onClickAction?: Function,
-    active?: boolean
+export class ListItem {
+    constructor(
+        public name: string,
+        public description?: string, 
+        public onClickAction?: Function,
+        public active = false,
+        public disabled = false
+    ) {
+    }
 }

@@ -17,7 +17,7 @@ export class FlowService {
     }
 
     public getById(id: string): Promise<Flow> {
-        return this.http.get(this.config.apiUrl + '/flow/get/' + id, SecurityPrincipal.createRequestOptionsWithUserJSONWebToken()).toPromise()
+        return this.http.get(this.config.apiUrl + `/flow/get/${id}`, SecurityPrincipal.createRequestOptionsWithUserJSONWebToken()).toPromise()
             .then((response: Response) => response.json());
     }
 
@@ -31,6 +31,11 @@ export class FlowService {
     public update(flow: Flow): Promise<any> {
         return this.http.put(this.config.apiUrl + '/flow/update', flow, SecurityPrincipal.createRequestOptionsWithUserJSONWebToken()).toPromise()
             .then((response: Response) => response.json());
+    }
+
+    public remove(flow: Flow): Promise<any> {
+        const id = flow.id;
+        return this.http.delete(this.config.apiUrl + `/flow/delete/${id}`, SecurityPrincipal.createRequestOptionsWithUserJSONWebToken()).toPromise()
     }
 
     public validate(flow: Flow) {

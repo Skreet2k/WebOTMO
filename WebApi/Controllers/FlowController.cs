@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Dtos;
 using WebApi.Services;
+using System;
 
 namespace WebApi.Controllers
 {
@@ -46,6 +47,21 @@ namespace WebApi.Controllers
         {
             var result = await _flowService.Update(flow);
             return Ok(result);
+        }
+
+        [HttpDelete("delete/{id}")]
+        public IActionResult Delete(long id)
+        {
+            try
+            {
+                _flowService.Delete(id);
+                return Ok();
+            } 
+            catch(Exception)
+            {
+                return NotFound();
+            }
+
         }
     }
 }

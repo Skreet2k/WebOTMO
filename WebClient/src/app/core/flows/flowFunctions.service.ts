@@ -29,6 +29,8 @@ export class FunctionDisplayItem {
     public id: number;
     public name: string;
     public description: string;
+    public deltaX: number;
+    public isNeedMaxLoadFactor: boolean;
 }
 
 export class ProcessFunctionRequestArgs {

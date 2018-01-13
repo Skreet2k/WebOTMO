@@ -29,7 +29,7 @@ namespace WebApi.Controllers {
             var data = JsonConvert.DeserializeObject<List<double>>(flow.Data);
 
             var result = _functionService.ProcessFunction (
-                function.Id, data, function.numberOfServiceUnits ?? 1, function.loadFactor ?? 0.1);
+                function.Id, data, function.numberOfServiceUnits ?? 1, function.loadFactor ?? 0.1, function.maxLoadFactor ?? 1);
             return Ok(result);
         }
     }
