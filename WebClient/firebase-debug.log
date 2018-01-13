@@ -1,0 +1,35 @@
+[debug] [2018-01-13T21:10:36.693Z] ----------------------------------------------------------------------
+[debug] [2018-01-13T21:10:36.695Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Skreet2k\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase deploy
+[debug] [2018-01-13T21:10:36.696Z] CLI Version:   3.16.0
+[debug] [2018-01-13T21:10:36.696Z] Platform:      win32
+[debug] [2018-01-13T21:10:36.696Z] Node Version:  v8.8.1
+[debug] [2018-01-13T21:10:36.697Z] Time:          Sun Jan 14 2018 01:10:36 GMT+0400 (RTZ 3 (зима))
+[debug] [2018-01-13T21:10:36.697Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-01-13T21:10:36.714Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-01-13T21:10:36.715Z] > authorizing via signed-in user
+[debug] [2018-01-13T21:10:36.718Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-01-13T21:10:36.718Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/WKF6Q4h1AJH3MD6saPicQmtccc2gFVwbjl9Nhc9X9so',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Sun Jan 14 2018 01:10:36 GMT+0400 (RTZ 3 (зима))
+[debug] [2018-01-13T21:10:37.015Z] <<< HTTP RESPONSE 200
+[debug] [2018-01-13T21:10:37.019Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/web-client-f2620  
+  
+ Sun Jan 14 2018 01:10:37 GMT+0400 (RTZ 3 (зима))
+[debug] [2018-01-13T21:10:38.046Z] <<< HTTP RESPONSE 200
+[debug] [2018-01-13T21:10:38.047Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/web-client-f2620/tokens  
+  
+ Sun Jan 14 2018 01:10:38 GMT+0400 (RTZ 3 (зима))
+[debug] [2018-01-13T21:10:38.883Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'web-client-f2620'...
+[info] 
+[info] i  deploying hosting
+[info] i  hosting: preparing dist directory for upload...
+[debug] [2018-01-13T21:10:40.024Z] >>> HTTP REQUEST PUT https://deploy.firebase.com/v1/hosting/web-client-f2620/uploads/-L2lM14YIdBwXV6DG08S?fileCount=12&message=  
+  
+ Sun Jan 14 2018 01:10:40 GMT+0400 (RTZ 3 (зима))
