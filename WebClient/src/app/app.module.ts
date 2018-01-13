@@ -32,6 +32,7 @@ import { UserService } from './services/user.service';
 import { FlowService } from './core/flows/flow.service';
 import { AuthenticationService } from './services/authentication.service';
 import { FlowFunctionsService } from './core/flows//flowFunctions.service';
+import { StorageService } from './services/storage.service';
 
 import { AppConfig } from './app.config';
 
@@ -86,6 +87,7 @@ import 'chartjs-plugin-zoom';
         FlowService,
         FlowFunctionsService,
         ChartCollectionProviderService,
+        StorageService
     ],
     bootstrap: [AppComponent]
 })
