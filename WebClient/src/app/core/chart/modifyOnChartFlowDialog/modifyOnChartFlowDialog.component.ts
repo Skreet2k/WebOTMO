@@ -241,7 +241,7 @@ export class ModifyFlowDialogModel {
     private validateMaxLoadFactor(): boolean {
         if (this.maxLoadFactor) {
             const maxLoadFactor = parseFloat(this.maxLoadFactor);
-            if (!_.isNaN(maxLoadFactor) && maxLoadFactor > 0 && maxLoadFactor <= 1) {
+            if (!_.isNaN(maxLoadFactor) && maxLoadFactor > 0) {
                 return true;
             }
             return false;

@@ -32,7 +32,7 @@
             <div *ngIf="areFunctionOptionsDisplayed" class="body-container-row">
                 <div *ngIf="displayMaxLoadFactorInput; else displayLoadFactorInput">
                     <span class="text-sm">Max load factor</span>
-                    <input type="number" min="0.1" max="1" step="0.1" class="form-control form-control-sm mb-3" name="maxLoadFactor" id="maxLoadFactor" [(ngModel)]="model.maxLoadFactor"/>
+                    <input type="number" min="0.1" step="0.1" class="form-control form-control-sm mb-3" name="maxLoadFactor" id="maxLoadFactor" [(ngModel)]="model.maxLoadFactor"/>
                 </div>
                 <ng-template #displayLoadFactorInput>
                     <span class="text-sm">Load factor</span>
