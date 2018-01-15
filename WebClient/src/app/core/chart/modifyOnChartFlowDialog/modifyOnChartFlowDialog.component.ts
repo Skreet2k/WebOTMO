@@ -17,7 +17,7 @@ export class ModifyOnChartFlowDialog implements OnInit, OnDestroy, ModalComponen
     public readonly model: ModifyFlowDialogModel;
 
     public dialogTitle: string;
-    public actualChartXAxesStep: number;
+    public actualChartXAxesStepFactor: number;
 
     public defaultFlowListModel: ListModel;
     public userFlowListModel: ListModel;
@@ -42,7 +42,7 @@ export class ModifyOnChartFlowDialog implements OnInit, OnDestroy, ModalComponen
 
         this.model = dialog.context.dialogModel;
         this.dialogTitle = dialog.context.title;
-        this.actualChartXAxesStep = dialog.context.actualChartXAxesStep;
+        this.actualChartXAxesStepFactor = dialog.context.actualChartXAxesStepFactor;
         dialog.context.dialogClass = "modal-dialog modal-hg";
     }
 
@@ -99,7 +99,7 @@ export class ModifyOnChartFlowDialog implements OnInit, OnDestroy, ModalComponen
         this.functionListModel = new ListModel("Functions", [], true, true);
         this.flowFunctionsService.getAll().then(functionDisplayItem => {
             _.forEach(functionDisplayItem, item => {
-                const disabled = this.actualChartXAxesStep != null && this.actualChartXAxesStep != item.deltaX;
+                const disabled = this.actualChartXAxesStepFactor != null && this.actualChartXAxesStepFactor != item.deltaX;
                 this.functionListModel.items.push({ 
                     name: item.name,
                     description: (disabled ? "You cannot use this function since there is at least one function with another abscissa data step interval on current chart. " : "") 
@@ -113,7 +113,7 @@ export class ModifyOnChartFlowDialog implements OnInit, OnDestroy, ModalComponen
                             this.model.loadFactor = DefaultFunctionOptions.loadFactor;
                             this.model.maxLoadFactor = "";
                         }
-                        this.model.xAxesStep = item.deltaX;
+                        this.model.xAxesStepFactor = item.deltaX;
                         this.model.functionId = item.id;
                     },
                     active: item.id === this.model.functionId,
@@ -149,7 +149,7 @@ export class ModifyFlowDialogContext extends BSModalContext {
 
     constructor(
         public title: string,
-        public actualChartXAxesStep?: number,
+        public actualChartXAxesStepFactor?: number,
         chartDataItem: FlowChartDataItem = new FlowChartDataItem()) {
         
         super();
@@ -170,6 +170,7 @@ export class ModifyFlowDialogModel {
     public pointBackgroundColor: string;
     public pointBorderColor: string;
     public xAxesStep: number;
+    public xAxesStepFactor: number;
 
     constructor(
         private chartDataItem: FlowChartDataItem) {
@@ -189,15 +190,17 @@ export class ModifyFlowDialogModel {
         this.borderColor = chartDataItem.displayOptions.borderColor || DefaultFlowDisplayOptions.borderColor;
         this.pointBackgroundColor = chartDataItem.displayOptions.pointBackgroundColor || DefaultFlowDisplayOptions.pointBackgroundColor;
         this.pointBorderColor = chartDataItem.displayOptions.pointBorderColor || DefaultFlowDisplayOptions.pointBorderColor;
-        this.xAxesStep = chartDataItem.displayOptions.xAxesStep || Number(DefaultFlowDisplayOptions.xAxesStep);
+        this.xAxesStepFactor = chartDataItem.displayOptions.xAxesStepFactor || Number(DefaultFlowDisplayOptions.xAxesStepFactor);
     }
 
     public createDataItem(): FlowChartDataItem {
         const functionArgs = new ProcessFunctionRequestArgs();
         functionArgs.id = Number(this.functionId);
         functionArgs.flowId = Number(this.flowId);
-        functionArgs.loadFactor = !_.isEmpty(this.loadFactor) ? Number(this.loadFactor): null;
-        functionArgs.maxLoadFactor = !_.isEmpty(this.maxLoadFactor) ? Number(this.maxLoadFactor): null;
+        const loadFactor = parseFloat(this.loadFactor);
+        functionArgs.loadFactor = !_.isNaN(loadFactor) ? loadFactor: null;
+        const maxLoadFactor = parseFloat(this.maxLoadFactor);
+        functionArgs.maxLoadFactor = !_.isNaN(maxLoadFactor) ? maxLoadFactor: null;
         functionArgs.numberOfServiceUnits = Number(this.numberOfServiceUnits);
 
         const displayOptions = new FlowDisplayOptions();
@@ -207,7 +210,8 @@ export class ModifyFlowDialogModel {
         displayOptions.borderWidth = Number(this.borderWidth);
         displayOptions.pointBackgroundColor = this.pointBackgroundColor;
         displayOptions.pointBorderColor = this.pointBorderColor;
-        displayOptions.xAxesStep = this.xAxesStep;
+        displayOptions.xAxesStepFactor = this.xAxesStepFactor || Number(DefaultFlowDisplayOptions.xAxesStepFactor);
+        displayOptions.xAxesStep = !_.isNaN(maxLoadFactor) ? displayOptions.xAxesStepFactor * maxLoadFactor : displayOptions.xAxesStepFactor
 
         this.chartDataItem.functionArgs = functionArgs;
         this.chartDataItem.displayOptions = displayOptions;
@@ -217,6 +221,7 @@ export class ModifyFlowDialogModel {
     public get isValid(): boolean {
         return this.validateLoadFactor()
             && this.validateNumberOfServiceUnits()
+            && this.validateMaxLoadFactor()
             && this.flowId != null
             && this.functionId != null
             && !_.isEmpty(this.displayedName);
@@ -224,8 +229,19 @@ export class ModifyFlowDialogModel {
 
     private validateLoadFactor(): boolean {
         if (this.loadFactor) {
-            const loadFactor = Number(this.loadFactor);
+            const loadFactor = parseFloat(this.loadFactor);
             if (!_.isNaN(loadFactor) && loadFactor > 0 && loadFactor <= 1) {
+                return true;
+            }
+            return false;
+        }
+        return true;
+    }
+
+    private validateMaxLoadFactor(): boolean {
+        if (this.maxLoadFactor) {
+            const maxLoadFactor = parseFloat(this.maxLoadFactor);
+            if (!_.isNaN(maxLoadFactor) && maxLoadFactor > 0 && maxLoadFactor <= 1) {
                 return true;
             }
             return false;
@@ -252,7 +268,7 @@ export enum DefaultFlowDisplayOptions {
     borderColor = "rgba(77,83,96,1)",
     pointBackgroundColor = "rgba(77,83,96,1)",
     pointBorderColor = "rgba(148,159,177, 0.8)",
-    xAxesStep = "1"
+    xAxesStepFactor = "1"
 }
 
 export enum DefaultFunctionOptions {

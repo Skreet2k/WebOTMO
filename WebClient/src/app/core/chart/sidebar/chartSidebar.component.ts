@@ -69,13 +69,13 @@ export class ChartSidebarComponent implements OnChanges {
     }
 
     private openModifyFlowDialog(title: string, dataItem?: FlowChartDataItem): Promise<FlowChartDataItem> {
-        let actualChartXAxesStep = this.activeTab.data.length > 1 
+        const actualChartXAxesStepFactor = this.activeTab.data.length > 1 
             || (this.activeTab.data[0] != null && dataItem == null) 
             || (this.activeTab.data[0] != null && this.activeTab.data[0].id != dataItem.id)
-                ? this.activeTab.data[0].displayOptions.xAxesStep
+                ? this.activeTab.data[0].displayOptions.xAxesStepFactor
                 : null;
         return this.modal.open(ModifyOnChartFlowDialog, overlayConfigFactory( 
-            new ModifyFlowDialogContext(title, actualChartXAxesStep, dataItem), ModifyFlowDialogContext)).result;
+            new ModifyFlowDialogContext(title, actualChartXAxesStepFactor, dataItem), ModifyFlowDialogContext)).result;
     }
 
     private refreshDisplayedData() {

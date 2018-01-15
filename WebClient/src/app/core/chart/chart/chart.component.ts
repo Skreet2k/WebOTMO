@@ -114,6 +114,7 @@ export class FlowDisplayOptions {
     public pointBackgroundColor: string;
     public pointBorderColor: string;
     public xAxesStep: number;
+    public xAxesStepFactor: number;
     public hidden = false;
 }
 
