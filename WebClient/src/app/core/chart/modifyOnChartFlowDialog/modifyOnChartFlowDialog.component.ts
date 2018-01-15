@@ -18,13 +18,13 @@ export class ModifyOnChartFlowDialog implements OnInit, OnDestroy, ModalComponen
 
     public dialogTitle: string;
     public actualChartXAxesStepFactor: number;
+    public demoChartModel: DemoChartModel;
 
     public defaultFlowListModel: ListModel;
     public userFlowListModel: ListModel;
     public functionListModel: ListModel;
     public numberOfServiceUnits: string;
     public loadFactor: string;
-    public backgroundColor: string;
 
     public colorPickerDialogPosition: string;
     public refreshColorPickerDialogPosition() {
@@ -54,8 +54,9 @@ export class ModifyOnChartFlowDialog implements OnInit, OnDestroy, ModalComponen
         this.unsubscribeFromWindowResizeEvent = window.onresize = (e) => {
             this.ngZone.run(() => {
                 this.refreshColorPickerDialogPosition();
-            })
+            });
         };
+        this.demoChartModel = new DemoChartModel(this.model);
     }
 
     public ngOnDestroy() {
@@ -141,6 +142,10 @@ export class ModifyOnChartFlowDialog implements OnInit, OnDestroy, ModalComponen
 
     public get areFunctionOptionsDisplayed() {
         return this.model.functionId != null;
+    }
+
+    public updateDemoChart() {
+        this.demoChartModel.updateDisplayOptions();
     }
 }
 
@@ -276,3 +281,36 @@ export enum DefaultFunctionOptions {
     maxLoadFactor = "1",
     numberOfServiceUnits = "1"
 }
+
+export class DemoChartModel {
+    public data = [1, 2, 3, 4, 5];
+    public labels = ["1", "2", "3", "4", "5"];
+    public chartType = "line";
+    public globalOptions = {
+        animation : false,
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+            display: false
+        },
+        tooltips: {
+            enabled: false
+        },
+    }
+    public displayOptions;
+
+    public constructor(private model: ModifyFlowDialogModel) {
+        this.updateDisplayOptions();
+    }
+
+    public updateDisplayOptions() {
+        this.displayOptions = [{
+            borderWidth: this.model.borderWidth,
+            backgroundColor: this.model.backgroundColor,
+            borderColor: this.model.borderColor,
+            pointBackgroundColor: this.model.pointBackgroundColor,
+            pointBorderColor: this.model.pointBorderColor
+        }];
+    }
+}
+

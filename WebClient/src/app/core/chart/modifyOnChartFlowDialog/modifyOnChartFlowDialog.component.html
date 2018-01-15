@@ -51,29 +51,28 @@
                 <div class="form-group mb-1 row">
                     <label class="col-sm-8 col-form-label">Border width</label>
                     <div class="col-sm-4">
-                        <input type="number" min="1" max="100" class="form-control form-control-sm" name="borderWidth" id="borderWidth" [(ngModel)]="model.borderWidth"
-                        />
+                        <input type="number" min="1" max="100" class="form-control form-control-sm" name="borderWidth" id="borderWidth" [(ngModel)]="model.borderWidth" (ngModelChange)="updateDemoChart()"/>
                     </div>
                 </div>
                 <div class="form-group mb-1 row">
                     <label class="col-sm-8 col-form-label">Background color</label>
                     <div class="col-sm-4">
                         <div [cpOutputFormat]="'rgba'" [cpPosition]="colorPickerDialogPosition" [style.background]="model.backgroundColor" [(colorPicker)]="model.backgroundColor"
-                            class="form-group color-picker-block" name="backgroundColor" id="backgroundColor"></div>
+                            class="form-group color-picker-block" (colorPickerChange)="updateDemoChart()" name="backgroundColor" id="backgroundColor"></div>
                     </div>
                 </div>
                 <div class="form-group mb-1 row">
                     <label class="col-sm-8 col-form-label">Border color</label>
                     <div class="col-sm-4">
                         <div type="text" [cpOutputFormat]="'rgba'" [cpPosition]="colorPickerDialogPosition" [style.background]="model.borderColor"
-                            [(colorPicker)]="model.borderColor" class="form-group color-picker-block" name="borderColor" id="borderColor"></div>
+                            [(colorPicker)]="model.borderColor" (colorPickerChange)="updateDemoChart()" class="form-group color-picker-block" name="borderColor" id="borderColor"></div>
                     </div>
                 </div>
                 <div class="form-group mb-1 row">
                     <label class="col-sm-8 col-form-label">Point background color</label>
                     <div class="col-sm-4">
                         <div type="text" [cpOutputFormat]="'rgba'" [cpPosition]="colorPickerDialogPosition" [style.background]="model.pointBackgroundColor"
-                            [(colorPicker)]="model.pointBackgroundColor" class="form-group color-picker-block" name="pointBackgroundColor"
+                            [(colorPicker)]="model.pointBackgroundColor" (colorPickerChange)="updateDemoChart()" class="form-group color-picker-block" name="pointBackgroundColor"
                             id="pointBackgroundColor"></div>
                     </div>
                 </div>
@@ -81,9 +80,18 @@
                     <label class="col-sm-8 col-form-label">Point border color</label>
                     <div class="col-sm-4">
                         <div type="text" [cpOutputFormat]="'rgba'" [cpPosition]="colorPickerDialogPosition" [style.background]="model.pointBorderColor"
-                            [(colorPicker)]="model.pointBorderColor" class="color-picker-block" name="pointBorderColor" id="pointBorderColor"></div>
+                            [(colorPicker)]="model.pointBorderColor" (colorPickerChange)="updateDemoChart()" class="color-picker-block" name="pointBorderColor" id="pointBorderColor"></div>
                     </div>
                 </div>
+            </div>
+            <div class="body-container-row h-40">
+                <canvas baseChart
+                    [data]="demoChartModel.data"
+                    [labels]="demoChartModel.labels"
+                    [options]="demoChartModel.globalOptions"
+                    [colors]="demoChartModel.displayOptions"
+                    [chartType]="demoChartModel.chartType">
+                </canvas>
             </div>
         </div>
     </div>
