@@ -12,7 +12,7 @@ namespace Services
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=SQL6002.site4now.net;Initial Catalog=DB_A2EBA2_otmo;User ID=DB_A2EBA2_otmo_admin;Password=Qqwerty1!;");
+            optionsBuilder.UseSqlServer(@"Data Source=SQL6001.site4now.net;Initial Catalog=DB_A339CF_db;User Id=DB_A339CF_db_admin;Password=Qqwerty1!;");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
