@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 import { StorageService } from '../../services/storage.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
-import { Router } from '@angular/router/src/router';
+import { Router } from '@angular/router/';
 
 
 @Injectable()
