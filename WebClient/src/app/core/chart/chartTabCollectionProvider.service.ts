@@ -49,7 +49,7 @@ export class ChartCollectionProviderService implements OnDestroy {
 
     public addNewTab(tab: Tab) {
         this.tabCollection[tab.id] = tab;
-        this.tabCollection[tab.id].data = this.getRandomDataSet(); // Remove this
+        this.tabCollection[tab.id].data = []
         this.setActiveTab(tab.id);
     }
 
@@ -107,11 +107,6 @@ export class ChartCollectionProviderService implements OnDestroy {
 
     private load() {
         // TODO: All source data should be loaded from DB
-        for(let i = 0; i < 3; i++) {
-            const tab = new Tab("Static tab " + i, this.getRandomDataSet());
-            this.tabCollection[tab.id] = tab;
-        }
-        this.setActiveTab((_.values(this.tabCollection)[0] as Tab).id);
     }
 
     private clear() {

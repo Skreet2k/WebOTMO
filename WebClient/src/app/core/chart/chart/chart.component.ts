@@ -32,7 +32,7 @@ export class ChartComponent implements OnChanges {
     public chartXDataLabels: string[];
     public chartDataDisplayOptions: FlowDisplayOptions[];
     public chartType = 'line';
-    private maxPointsToDisplay = 100;
+    private maxPointsToDisplay = 1000;
     private decimateFactor;
 
     public chartGlobalConfiguration = {
